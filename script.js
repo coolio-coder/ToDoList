@@ -50,8 +50,6 @@ var fourthPriority = [
 
 console.log(priorityList)
 
-//Question about hoisting -> why do I have to assign the variables to priorityList after I declare the other variables?
-
 //Step 2: User says how much time they can allocate in a given day
 
 var alottedTime = 5;
@@ -84,17 +82,12 @@ var fourthTime = alottedTime * fourthPercentage;
     var durationSort = (arr) => {
         var temp = [];
         //Pick a random task in each priority
-        arr.map(task => {
-            //Pick a random task inside each priority list
+        for(let i=0;i<arr.length;i++) {
             var pickedTask = task[Math.floor(Math.random()*task.length)];
             console.log(pickedTask)
             if(pickedTask.duration > 0) {
                 var multiplier = (pickedTask.duration / 0.5)
-                
-            }
-        
-        })
-
+        }
         //separate the tasks into 30minute segments
        
     }
