@@ -95,8 +95,8 @@ var fourthTime = alottedTime * fourthPercentage;
             var multiplier = (pickedTask.duration / 0.5)
             console.log(multiplier)
             for(let j=0;j<multiplier;j++) {
-                pickedTask.duration = 0.5;
-                temp.push(pickedTask);
+                const newMiniTask = Object.assign({}, pickedTask, { duration: 0.5 });
+                temp.push(newMiniTask);
             }
         }
         console.log(temp[0])
@@ -110,7 +110,7 @@ var fourthTime = alottedTime * fourthPercentage;
         for(let k=0;k<temp.length;k++){
             if(temp[k].important === true) {
                 schedule1.push(temp[k]);
-                temp.splice(temp[k],0)
+                temp.splice(k,1)
             }
         }
         console.log(schedule1)
@@ -143,6 +143,8 @@ durationSort(priorityList)
 //Add task options
 
 function addTask () {
+
+    //Create Elements
     const div = document.createElement('div');
     const taskInput = document.createElement('input');
     const durationInput = document.createElement('input');
@@ -172,7 +174,7 @@ function addTask () {
     addTaskbutton.id='a-priority';
     addTaskbutton.innerHTML='+ Add more Task'
 
-    console.log(event)
+        //Append it to the array
         document.getElementById(event.srcElement.parentNode.id).appendChild(taskInput);
         document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
     
@@ -188,6 +190,19 @@ function addTask () {
     // addTaskbutton.addEventListener('click', addTask())
     
 }
+
+function createSchedule () {
+    const div = document.createElement('div');
+    for(let i=0;i<schedule1.length;i++){
+        div.innerHTML='';
+        console.log(schedule1[i].task)
+        div.innerHTML = schedule1[i].task;
+        document.getElementById('yourSchedule').appendChild(div);
+        
+    }
+}
+
+window.onload = createSchedule;
 
 /*************************************** IDEAS / QUESTIONS *******************************************
  * 1) How do we come up with a way to effectively read whick task number it is
