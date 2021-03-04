@@ -4,3 +4,7 @@
     margin: auto;
     height: auto;
 }
+
+.addTask {
+    cursor: pointer;
+}

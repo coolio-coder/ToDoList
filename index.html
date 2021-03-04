@@ -5,15 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type='text/css' href="style.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>Document</title>
 </head>
 <body>
     <div class='Priority_Questions' id='firstPriority'>
     Highest Priority <br><br>
-    <input type='text' placeholder='Your Task'><br>
-    <input type='text' placeholder="Duration"><br>
-    Is the task important? <input type="checkbox"><br>
-    + Add more tasks
+    <div class='tasks' id='a-1'>
+        <input type='text' id='a-1-task' placeholder='Your Task'><br>
+        <input type='text' id='a-1-duration' placeholder="Duration in Hours"><br>
+        <a id='a-1-important'>Is the task important?<input type="checkbox" id='a-1-checkbox'></a><br><br>
+    </div>
+    
+    <a class='addTask' id='a-priority' onclick="addTask()">+ Add more Task</a>
     <br>
     </div>
 
@@ -21,18 +25,18 @@
     Medium Priority
     <br><br>
     <input type='text' placeholder='Your Task'><br>
-    <input type='text' placeholder="Duration"><br>
+    <input type='text' placeholder="Duration in Hours"><br>
     Is the task important? <input type="checkbox"><br>
-    + Add more tasks
+    <a class='addTask' id='b-priority' onclick="addTask()">+ Add more Task</a>
     <br>
     </div>
 
     <div class='Priority_Questions' id='thirdPriority'>
     Lowest Priority <br><br>
     <input type='text' placeholder='Your Task'><br>
-    <input type='text' placeholder="Duration"><br>
+    <input type='text' placeholder="Duration in Hours"><br>
     Is the task important? <input type="checkbox"><br>
-    + Add more tasks
+    <a class='addTask' id='c-priority' onclick="addTask()">+ Add more Task</a>
     <br>
     </div>
 

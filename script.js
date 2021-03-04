@@ -8,7 +8,6 @@
 
 //Step 1: User enters items that they consider highest to lowest priority. The item is then array.push() into the corresponding array.
 
-var priorityList = [firstPriority, secondPriority, thirdPriority, fourthPriority];
 
 var firstPriority = [
     {
@@ -19,35 +18,42 @@ var firstPriority = [
     {
         task:'Work on independent project',
         duration: 3,
+        important: true,
     }
 ];
 var secondPriority = [
     {
-    task: 'Read Algorithm Design Manual',
-    duration: 2,
+        task: 'Read Algorithm Design Manual',
+        duration: 2,
+        important: true,
     }
 ];
 var thirdPriority = [
     {
         task: 'Work on Code Wars Questions', 
         duration: 1.5,
+        important: false,
     },
     {
         task: 'Work on Leet Code Questions',
         duration: 2,
+        important: false,
     }
 ];
 var fourthPriority = [
     {
         task: 'Read "Learning SQL"',
         duration: 1.5,
+        important: false,
     },
     {
         task: 'Watch video on Graph Theory',
         duration: 1,
+        important: false,
     }
 ];
 
+var priorityList = [firstPriority, secondPriority, thirdPriority, fourthPriority];
 console.log(priorityList)
 
 //Step 2: User says how much time they can allocate in a given day
@@ -83,22 +89,106 @@ var fourthTime = alottedTime * fourthPercentage;
         var temp = [];
         //Pick a random task in each priority
         for(let i=0;i<arr.length;i++) {
-            var pickedTask = task[Math.floor(Math.random()*task.length)];
+            var pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
             console.log(pickedTask)
-            if(pickedTask.duration > 0) {
-                var multiplier = (pickedTask.duration / 0.5)
+            //separate the tasks into 30minute segments
+            var multiplier = (pickedTask.duration / 0.5)
+            console.log(multiplier)
+            for(let j=0;j<multiplier;j++) {
+                pickedTask.duration = 0.5;
+                temp.push(pickedTask);
+            }
         }
-        //separate the tasks into 30minute segments
-       
-    }
+        console.log(temp[0])
+        console.log(temp[1])
+        console.log(temp[2])
+        console.log(temp[3])
+        console.log(temp[4])
+        console.log(temp[5])
+        console.log(temp)
+        //sorting the schedule based on importance
+        for(let k=0;k<temp.length;k++){
+            if(temp[k].important === true) {
+                schedule1.push(temp[k]);
+                temp.splice(temp[k],0)
+            }
+        }
+        console.log(schedule1)
+        console.log(temp)
+        //Fisher-Yates Shuffle https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        function shuffle (array) {
+            var currentIndex=array.length, temporaryValue, randomIndex;
 
-    durationSort(priorityList)
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+        schedule1 = schedule1.concat(shuffle(temp));
+}
+//question about scoping inside for loop and outside, can you use the same variable?
+durationSort(priorityList)
+
+
+//Add task options
+
+function addTask () {
+    const div = document.createElement('div');
+    const taskInput = document.createElement('input');
+    const durationInput = document.createElement('input');
+    const aText = document.createElement('a');
+    const checkboxInput = document.createElement('input');
+    const linebreak = document.createElement('br');
+    const addTaskbutton = document.createElement('a');
+
+    div.class='tasks';
+    div.id=`a-${2}`
+
+    taskInput.type='text';
+    taskInput.placeholder='Your Task';
+    taskInput.id=`a-${2}-task`;
+
+    durationInput.type='text';
+    durationInput.placeholder='Duration in Hours';
+    durationInput.id=`a-${2}-duration`;
+
+    aText.id=`a-${2}-important`;
+    aText.innerHTML='Is this task important';
+
+    checkboxInput.type='checkbox';
+    checkboxInput.id=`a-${2}-checkbox`;
+
+    addTaskbutton.class='addTask';
+    addTaskbutton.id='a-priority';
+    addTaskbutton.innerHTML='+ Add more Task'
+
+    console.log(event)
+        document.getElementById(event.srcElement.parentNode.id).appendChild(taskInput);
+        document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
     
+        document.getElementById(event.srcElement.parentNode.id).appendChild(durationInput);
+        document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
 
+        document.getElementById(event.srcElement.parentNode.id).appendChild(aText);
+        document.getElementById(aText.id).appendChild(checkboxInput);
+        document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
 
+        document.getElementById(event.srcElement.parentNode.id).appendChild(addTaskbutton);
+
+    // addTaskbutton.addEventListener('click', addTask())
+    
+}
 
 /*************************************** IDEAS / QUESTIONS *******************************************
- * 1) Have firstPriority, secondPriority, etc have prototype properties so that when a user presses a button or click-drag items, the program will automatically adjust percentages
- * 
- * 2) Have the User pick whether they want to work on task randomly or must do tasks (i.e. set a checkmark )
+ * 1) How do we come up with a way to effectively read whick task number it is
  */
