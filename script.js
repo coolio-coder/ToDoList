@@ -83,10 +83,9 @@ var fourthTime = alottedTime * fourthPercentage;
 //Step 4: Create Arrays with schedules
 
     //First way of sorting
-    var schedule1 = [];
 
     var durationSort = (arr) => {
-        var temp = [];
+        var schedule = [];
         //Pick a random task in each priority
         for(let i=0;i<arr.length;i++) {
             var pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
@@ -96,25 +95,25 @@ var fourthTime = alottedTime * fourthPercentage;
             console.log(multiplier)
             for(let j=0;j<multiplier;j++) {
                 const newMiniTask = Object.assign({}, pickedTask, { duration: 0.5 });
-                temp.push(newMiniTask);
+                schedule.push(newMiniTask);
             }
         }
-        console.log(temp[0])
-        console.log(temp[1])
-        console.log(temp[2])
-        console.log(temp[3])
-        console.log(temp[4])
-        console.log(temp[5])
-        console.log(temp)
+        console.log(schedule[0])
+        console.log(schedule[1])
+        console.log(schedule[2])
+        console.log(schedule[3])
+        console.log(schedule[4])
+        console.log(schedule[5])
+        console.log(schedule)
         //sorting the schedule based on importance
-        for(let k=0;k<temp.length;k++){
-            if(temp[k].important === true) {
-                schedule1.push(temp[k]);
-                temp.splice(k,1)
+        for(let k=0;k<schedule.length;k++){
+            if(schedule[k].important === true) {
+                schedule1.push(schedule[k]);
+                schedule.splice(k,1)
             }
         }
         console.log(schedule1)
-        console.log(temp)
+        console.log(schedule)
         //Fisher-Yates Shuffle https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
         function shuffle (array) {
             var currentIndex=array.length, temporaryValue, randomIndex;
@@ -134,10 +133,11 @@ var fourthTime = alottedTime * fourthPercentage;
 
             return array;
         }
-        schedule1 = schedule1.concat(shuffle(temp));
+        return schedule1.concat(shuffle(schedule));
+        //return [importantTasks, unimportantShuffledTasks]
 }
 //question about scoping inside for loop and outside, can you use the same variable?
-durationSort(priorityList)
+var tasksList = durationSort(priorityList);
 
 
 //Add task options
@@ -192,13 +192,13 @@ function addTask () {
 }
 
 function createSchedule () {
+    //loop 
     const div = document.createElement('div');
     for(let i=0;i<schedule1.length;i++){
         div.innerHTML='';
         console.log(schedule1[i].task)
         div.innerHTML = schedule1[i].task;
         document.getElementById('yourSchedule').appendChild(div);
-        
     }
 }
 
