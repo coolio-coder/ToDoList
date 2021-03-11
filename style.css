@@ -17,3 +17,23 @@
     width: 50%;
     text-align: center;
 }
+
+.center {
+    position: relative;
+    text-align: center;
+    padding: 400px 0;
+}
+
+#test p {
+    -webkit-animation: fadein 3s;
+}
+#test div {
+    -webkit-animation: fadein 7s;
+}
+#test a {
+    -webkit-animation: fadein 8s;
+}
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

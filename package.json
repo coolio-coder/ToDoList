@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bulma-carousel": "^4.0.24",
+    "milligram": "^1.4.1"
+  }
+}

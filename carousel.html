@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type='text/css' href="carousel.css">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+  	<body>
+		<!-- Slideshow container -->
+		<div class="slideshow-container">
+
+			<div class="mySlides fade">
+			  <p class='title is-1'>Highest Priority Tasks</p>
+			  <a class='subtitle is-3'>Please list all the tasks that are your highest priority and which of them are important</a>
+			  <br><br>
+			  <div class='tasks' id='a-1'>
+				<input class='input field'type='text' id='a-1-task field' placeholder='Your Task'><br>
+				<input class='input field' type='text' id='a-1-duration' placeholder="Duration in Hours"><br>
+				<a class='checkbox' id='a-1-important'>Is the task important?<input type="checkbox" id='a-1-checkbox'></a><br><br>
+				<a class='addTask' id='a-priority' onclick="addTask()">+ Add more Task</a>
+				<br>
+			</div>
+			</div>
+			
+			<div class="mySlides fade">
+			  <img src="img_snow_wide.jpg" style="width:100%">
+			  <div class="text">Caption Two</div>
+			</div>
+			
+			<div class="mySlides fade">
+			  <img src="img_mountains_wide.jpg" style="width:100%">
+			  <div class="text">Caption Three</div>
+			</div>
+			
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+			
+			<br>
+			<progress class='progress is-medium' value='25' max='100'></progress>
+		</div>
+			
+			<!-- <div style="text-align:center">
+			  <span class="dot" onclick="currentSlide(1)"></span> 
+			  <span class="dot" onclick="currentSlide(2)"></span> 
+			  <span class="dot" onclick="currentSlide(3)"></span> 
+			  <span class="dot" onclick="currentSlide(4)"></span> 
+			</div> -->
+	</body>
+	<script type="text/javascript" src="script.js"></script>
+
+</html>
