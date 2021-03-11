@@ -16,24 +16,48 @@
 			<div class="mySlides fade">
 			  <p class='title is-1'>Highest Priority Tasks</p>
 			  <a class='subtitle is-3'>Please list all the tasks that are your highest priority and which of them are important</a>
-			  <br><br>
+			  <br><br><br><br>
 			  <div class='tasks' id='a-1'>
-				<input class='input field'type='text' id='a-1-task field' placeholder='Your Task'><br>
-				<input class='input field' type='text' id='a-1-duration' placeholder="Duration in Hours"><br>
+			    <p class='subtitle is-4'>Task 1</p>
+				<input class='input'type='text' id='a-1-task' placeholder='Your Task'><br>
+				<input class='input' type='text' id='a-1-duration' placeholder="Duration in Hours"><br>
 				<a class='checkbox' id='a-1-important'>Is the task important?<input type="checkbox" id='a-1-checkbox'></a><br><br>
-				<a class='addTask' id='a-priority' onclick="addTask()">+ Add more Task</a>
+				<a class='addTask button is-primary is-small' id='a-priority' onclick="addTask()">+ Add more Task</a><br>
+				<a class='button is-medium is-light is-primary'>Submit your tasks</a>
 				<br>
 			</div>
 			</div>
 			
 			<div class="mySlides fade">
-			  <img src="img_snow_wide.jpg" style="width:100%">
-			  <div class="text">Caption Two</div>
+				<p class='title is-1'>Medium Priority Tasks</p>
+				<a class='subtitle is-3'>Please list all the tasks that are your medium priority list. These are the tasks that are on your plate but aren't as important.</a>
+				<br><br><br><br>
+			<div class='tasks' id='b-1'>
+				<p class='subtitle is-4'>Task 1</p>
+			  <input class='input' type='text' placeholder='Your Task'><br>
+			  <input class='input' type='text' placeholder="Duration in Hours"><br>
+			  <a class='checkbox' id='b-1-important'>Is the task important?<input type="checkbox" id='b-1-checkbox'></a><br><br>
+			  <a class='addTask button is-primary is-small' id='b-priority' onclick="addTask()">+ Add more Task</a>
+			  <br>
+			</div>
 			</div>
 			
 			<div class="mySlides fade">
-			  <img src="img_mountains_wide.jpg" style="width:100%">
-			  <div class="text">Caption Three</div>
+				<p class='title is-1'>Low Priority Tasks</p>
+				<a class='subtitle is-3'>Please list all the tasks that are your lowest priority list. These are the tasks that are not important but nice to have completed.</a>
+				<br><br><br><br>
+			<div class='tasks' id='c-1'>
+				<p class='subtitle is-4'>Task 1</p>
+			  <input class='input' type='text' placeholder='Your Task'><br>
+			  <input class='input' type='text' placeholder="Duration in Hours"><br>
+			  <a class='checkbox' id='c-1-important'>Is the task important?<input type="checkbox" id='b-1-checkbox'></a><br><br>
+			  <a class='addTask button is-primary is-small' id='c-priority' onclick="addTask()">+ Add more Task</a>
+			  <br>
+			</div>
+			</div>
+
+			<div class='mySlides fade'>
+				<p class='title is-1'>Your Custom Schedule</p>
 			</div>
 			
 			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>

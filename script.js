@@ -153,20 +153,23 @@ function addTask () {
     div.id=`a-${2}`
 
     taskInput.type='text';
+    taskInput.className ='input';
     taskInput.placeholder='Your Task';
     taskInput.id=`a-${2}-task`;
 
     durationInput.type='text';
+    durationInput.className ='input'
     durationInput.placeholder='Duration in Hours';
     durationInput.id=`a-${2}-duration`;
 
     aText.id=`a-${2}-important`;
+    aText.className='checkbox'
     aText.innerHTML='Is this task important';
 
     checkboxInput.type='checkbox';
     checkboxInput.id=`a-${2}-checkbox`;
 
-    addTaskbutton.class='addTask';
+    addTaskbutton.className='addTask button is-primary is-small';
     addTaskbutton.id='a-priority';
     addTaskbutton.innerHTML='+ Add more Task'
 
