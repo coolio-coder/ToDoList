@@ -103,6 +103,7 @@ var fourthTime = alottedTime * fourthPercentage;
         // console.log(schedule[4])
         // console.log(schedule[5])
         var importantTasks = [];
+        var nonImportantTasks = [];
 
         console.log(schedule.length)
         console.log(schedule)
@@ -112,12 +113,10 @@ var fourthTime = alottedTime * fourthPercentage;
 
         //sorting the schedule based on importance
         for(let k=0;k<schedule.length;k++){
-            console.log(schedule[k])
-
             if(schedule[k].important === true) {
-                console.log(schedule);
                 importantTasks.push(schedule[k]);
-                // schedule.splice(k,1);
+            } else {
+                nonImportantTasks.push(schedule[k])
             }
         }
         console.log(importantTasks)
@@ -140,7 +139,7 @@ var fourthTime = alottedTime * fourthPercentage;
 
             return array;
         }
-        var shuffledNonImportantTasks = shuffle(schedule);
+        var shuffledNonImportantTasks = shuffle(nonImportantTasks);
         return [importantTasks,shuffledNonImportantTasks];
 }
 //question about scoping inside for loop and outside, can you use the same variable?
