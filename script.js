@@ -103,12 +103,21 @@ var fourthTime = alottedTime * fourthPercentage;
         // console.log(schedule[4])
         // console.log(schedule[5])
         var importantTasks = [];
+
+        console.log(schedule.length)
+        console.log(schedule)
+        // for(let a=0;a<schedule.length;a++){
+        //     console.log(schedule[a])
+        // }
+
         //sorting the schedule based on importance
         for(let k=0;k<schedule.length;k++){
             console.log(schedule[k])
+
             if(schedule[k].important === true) {
+                console.log(schedule);
                 importantTasks.push(schedule[k]);
-                schedule.splice(k,1)
+                // schedule.splice(k,1);
             }
         }
         console.log(importantTasks)
@@ -131,8 +140,8 @@ var fourthTime = alottedTime * fourthPercentage;
 
             return array;
         }
-        var shuffledTasks = shuffle(schedule);
-        return [importantTasks,shuffledTasks];
+        var shuffledNonImportantTasks = shuffle(schedule);
+        return [importantTasks,shuffledNonImportantTasks];
 }
 //question about scoping inside for loop and outside, can you use the same variable?
 durationSort(priorityList)
@@ -234,6 +243,8 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
 }
+
+console.log('hello')
 
 /*************************************** IDEAS / QUESTIONS *******************************************
  * 1) How do we come up with a way to effectively read whick task number it is
