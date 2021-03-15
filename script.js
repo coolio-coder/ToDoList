@@ -154,7 +154,7 @@ function addTask () {
     const durationInput = document.createElement('input');
     const aText = document.createElement('a');
     const checkboxInput = document.createElement('input');
-    const linebreak = document.createElement('br');
+    var linebreak = document.createElement('br');
     const addTaskbutton = document.createElement('a');
 
     div.class='tasks';
@@ -184,13 +184,16 @@ function addTask () {
     console.log(event)
         document.getElementById(event.srcElement.parentNode.id).appendChild(taskInput);
         document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+        linebreak = document.createElement('br');
     
         document.getElementById(event.srcElement.parentNode.id).appendChild(durationInput);
         document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+        linebreak = document.createElement('br');
 
         document.getElementById(event.srcElement.parentNode.id).appendChild(aText);
         document.getElementById(aText.id).appendChild(checkboxInput);
         document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+        linebreak = document.createElement('br');
 
         document.getElementById(event.srcElement.parentNode.id).appendChild(addTaskbutton);
 
@@ -199,10 +202,17 @@ function addTask () {
 }
 
 window.addEventListener('load', (event) => {
+    var taskElement = document.createElement('a');
+    var linebreak = document.createElement('br');
+
+
     var randomSort = durationSort(priorityList);
     for(let i=0; i<randomSort.length;i++) {
         for(let j=0; j<randomSort[i].length;j++){
-            console.log(randomSort[i][j])
+            document.getElementById('schedule-box').innerHTML +=
+            "<tr> <td class=\"grid-item\">" + "N/A" +
+            "</td><td class=\"grid-item\">" + randomSort[i][j].task +
+            "</td><td class=\"grid-item\">" + randomSort[i][j].duration + " hour" + "</td> </tr>";
         }
     }
 })
@@ -214,7 +224,7 @@ window.addEventListener('load', (event) => {
 
 //Carousel script
 
-var slideIndex = 1;
+var slideIndex = 5;
 showSlides(slideIndex);
 
 // Next/previous controls
@@ -230,17 +240,12 @@ function currentSlide(n) {
 function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
+  if (n > slides.length) {slideIndex = n - 1}
+  if (n < 1) {slideIndex = n + 1}
   for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
   }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
   slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
 }
 
 console.log('hello')
