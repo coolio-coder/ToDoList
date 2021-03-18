@@ -154,3 +154,9 @@ img {vertical-align: middle;}
     text-align: center;
     margin: auto;
 }
+
+.tasks {
+  width: 65%;
+  text-align: center;
+  margin: auto;
+}

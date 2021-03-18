@@ -8,53 +8,57 @@
 
 //Step 1: User enters items that they consider highest to lowest priority. The item is then array.push() into the corresponding array.
 
+var aPriority = [],
+    bPriority = [],
+    cPriority = [];
 
-var firstPriority = [
-    {
-        task: 'Work on the Odin Project',
-        duration: 2,
-        important: true,
-    },
-    {
-        task:'Work on independent project',
-        duration: 3,
-        important: true,
-    }
-];
-var secondPriority = [
-    {
-        task: 'Read Algorithm Design Manual',
-        duration: 2,
-        important: true,
-    }
-];
-var thirdPriority = [
-    {
-        task: 'Work on Code Wars Questions', 
-        duration: 1.5,
-        important: false,
-    },
-    {
-        task: 'Work on Leet Code Questions',
-        duration: 2,
-        important: false,
-    }
-];
-var fourthPriority = [
-    {
-        task: 'Read "Learning SQL"',
-        duration: 1.5,
-        important: false,
-    },
-    {
-        task: 'Watch video on Graph Theory',
-        duration: 1,
-        important: false,
-    }
-];
+// var firstPriority = [
+//     {
+//         task: 'Work on the Odin Project',
+//         duration: 2,
+//         important: true,
+//     },
+//     {
+//         task:'Work on independent project',
+//         duration: 3,
+//         important: true,
+//     }
+// ];
+// var secondPriority = [
+//     {
+//         task: 'Read Algorithm Design Manual',
+//         duration: 2,
+//         important: true,
+//     }
+// ];
+// var thirdPriority = [
+//     {
+//         task: 'Work on Code Wars Questions', 
+//         duration: 1.5,
+//         important: false,
+//     },
+//     {
+//         task: 'Work on Leet Code Questions',
+//         duration: 2,
+//         important: false,
+//     }
+// ];
+// var fourthPriority = [
+//     {
+//         task: 'Read "Learning SQL"',
+//         duration: 1.5,
+//         important: false,
+//     },
+//     {
+//         task: 'Watch video on Graph Theory',
+//         duration: 1,
+//         important: false,
+//     }
+// ];
 
-var priorityList = [firstPriority, secondPriority, thirdPriority, fourthPriority];
+var priorityList = [aPriority, bPriority, cPriority];
 console.log(priorityList)
+
 
 //Step 2: User says how much time they can allocate in a given day
 
@@ -80,142 +84,157 @@ var fourthTime = alottedTime * fourthPercentage;
 // console.log(thirdTime);
 // console.log(fourthTime);
 
-//Step 4: Create Arrays with schedules
-
-    //First way of sorting
-
-    var durationSort = (arr) => {
-        var schedule = [];
-        //Pick a random task in each priority
-        for(let i=0;i<arr.length;i++) {
-            var pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
-            //separate the tasks into 30minute segments
-            var multiplier = (pickedTask.duration / 0.5)
-            for(let j=0;j<multiplier;j++) {
-                const newMiniTask = Object.assign({}, pickedTask, { duration: 0.5 });
-                schedule.push(newMiniTask);
-            }
-        }
-        // console.log(schedule[0])
-        // console.log(schedule[1])
-        // console.log(schedule[2])
-        // console.log(schedule[3])
-        // console.log(schedule[4])
-        // console.log(schedule[5])
-        var importantTasks = [];
-        var nonImportantTasks = [];
-
-        console.log(schedule.length)
-        console.log(schedule)
-        // for(let a=0;a<schedule.length;a++){
-        //     console.log(schedule[a])
-        // }
-
-        //sorting the schedule based on importance
-        for(let k=0;k<schedule.length;k++){
-            if(schedule[k].important === true) {
-                importantTasks.push(schedule[k]);
-            } else {
-                nonImportantTasks.push(schedule[k])
-            }
-        }
-        console.log(importantTasks)
-        //Fisher-Yates Shuffle https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-        function shuffle (array) {
-            var currentIndex=array.length, temporaryValue, randomIndex;
-
-            // While there remain elements to shuffle...
-            while (0 !== currentIndex) {
-
-                // Pick a remaining element...
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex -= 1;
-
-                // And swap it with the current element.
-                temporaryValue = array[currentIndex];
-                array[currentIndex] = array[randomIndex];
-                array[randomIndex] = temporaryValue;
-            }
-
-            return array;
-        }
-        var shuffledNonImportantTasks = shuffle(nonImportantTasks);
-        return [importantTasks,shuffledNonImportantTasks];
-}
-//question about scoping inside for loop and outside, can you use the same variable?
-durationSort(priorityList)
 
 
 //Add task options
 
+var priorityIndex = {
+    a: 1,
+    b: 1,
+    c: 1,
+};
+
+
 function addTask () {
     const div = document.createElement('div');
+    const taskNumber = document.createElement('p');
     const taskInput = document.createElement('input');
     const durationInput = document.createElement('input');
-    const aText = document.createElement('a');
+    var aText = document.createElement('a');
     const checkboxInput = document.createElement('input');
     var linebreak = document.createElement('br');
     const addTaskbutton = document.createElement('a');
 
+    //Remove the button
+    
+    //Examine the index of the add button and tasks 
+    console.log(document.getElementById(event.srcElement.parentNode.id).id.charAt(0))
+    var priorityDegree = document.getElementById(event.srcElement.parentNode.id).id.charAt(0);
+    console.log(priorityIndex[`${priorityDegree}`])
+    
+    console.log(document.getElementById(`${priorityDegree}-${priorityIndex[`${priorityDegree}`]}-priority`))
+    // document.getElementById(`${priorityDegree}-${priorityIndex[`${priorityDegree}Priority`]}-priority`).remove();
+
+    priorityIndex[`${priorityDegree}`] += 1;
+    var priorityNumber = priorityIndex[priorityDegree];
+    
     div.class='tasks';
-    div.id=`a-${2}`
+    div.id=`${priorityDegree}-${priorityNumber}`
+
+    taskNumber.className = 'subtitle is-4'
+    taskNumber.innerHTML = `Task ${priorityNumber}`
 
     taskInput.type='text';
     taskInput.className ='input';
     taskInput.placeholder='Your Task';
-    taskInput.id=`a-${2}-task`;
+    taskInput.id=`${priorityDegree}-${priorityNumber}-task`;
 
     durationInput.type='text';
     durationInput.className ='input'
     durationInput.placeholder='Duration in Hours';
-    durationInput.id=`a-${2}-duration`;
+    durationInput.id=`${priorityDegree}-${priorityNumber}-duration`;
 
-    aText.id=`a-${2}-important`;
+    aText.id=`${priorityDegree}-${priorityNumber}-important`;
     aText.className='checkbox'
     aText.innerHTML='Is this task important';
 
     checkboxInput.type='checkbox';
-    checkboxInput.id=`a-${2}-checkbox`;
+    checkboxInput.id=`${priorityDegree}-${priorityNumber}-checkbox`;
 
     addTaskbutton.className='addTask button is-primary is-small';
-    addTaskbutton.id='a-priority';
+    addTaskbutton.id=`${priorityDegree}-${priorityNumber}-priority`;
     addTaskbutton.innerHTML='+ Add more Task'
-
-    console.log(event)
-        document.getElementById(event.srcElement.parentNode.id).appendChild(taskInput);
-        document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
-        linebreak = document.createElement('br');
     
-        document.getElementById(event.srcElement.parentNode.id).appendChild(durationInput);
-        document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
-        linebreak = document.createElement('br');
-
-        document.getElementById(event.srcElement.parentNode.id).appendChild(aText);
-        document.getElementById(aText.id).appendChild(checkboxInput);
-        document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
-        linebreak = document.createElement('br');
-
-        document.getElementById(event.srcElement.parentNode.id).appendChild(addTaskbutton);
-
+    // console.log(target)
+    document.getElementById(event.srcElement.parentNode.id).appendChild(taskInput);
+    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    linebreak = document.createElement('br');
+    
+    document.getElementById(event.srcElement.parentNode.id).appendChild(durationInput);
+    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    linebreak = document.createElement('br');
+    
+    document.getElementById(event.srcElement.parentNode.id).appendChild(aText);
+    document.getElementById(aText.id).appendChild(checkboxInput);
+    aText = document.createElement('a');
+    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    linebreak = document.createElement('br');
+    
+    document.getElementById(event.srcElement.parentNode.id).appendChild(addTaskbutton);
+    
+    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    linebreak = document.createElement('br');
+    
+    
     // addTaskbutton.addEventListener('click', addTask())
+    // addTaskbutton.onclick = addTask();
     
 }
 
-window.addEventListener('load', (event) => {
-    var taskElement = document.createElement('a');
-    var linebreak = document.createElement('br');
+// window.addEventListener('load', (event) => {
+//     var randomSort = durationSort(priorityList);
+//     for(let i=0; i<randomSort.length;i++) {
+//         for(let j=0; j<randomSort[i].length;j++){
+//             document.getElementById('schedule-box').innerHTML +=
+//             "<tr> <td class=\"grid-item\">" + "N/A" +
+//             "</td><td class=\"grid-item\">" + randomSort[i][j].task +
+//             "</td><td class=\"grid-item\">" + randomSort[i][j].duration + " hour" + "</td> </tr>";
+//         }
+//     }
+// })
 
 
-    var randomSort = durationSort(priorityList);
-    for(let i=0; i<randomSort.length;i++) {
-        for(let j=0; j<randomSort[i].length;j++){
-            document.getElementById('schedule-box').innerHTML +=
-            "<tr> <td class=\"grid-item\">" + "N/A" +
-            "</td><td class=\"grid-item\">" + randomSort[i][j].task +
-            "</td><td class=\"grid-item\">" + randomSort[i][j].duration + " hour" + "</td> </tr>";
+var durationSort = (arr) => {
+    var schedule = [];
+    //Pick a random task in each priority
+    for(let i=0;i<arr.length;i++) {
+        var pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
+        //separate the tasks into 30minute segments
+        var multiplier = (pickedTask.duration / 0.5)
+        for(let j=0;j<multiplier;j++) {
+            const newMiniTask = Object.assign({}, pickedTask, { duration: 0.5 });
+            schedule.push(newMiniTask);
         }
     }
-})
+    var importantTasks = [];
+    var nonImportantTasks = [];
+
+    console.log(schedule.length)
+    console.log(schedule)
+
+    //sorting the schedule based on importance
+    for(let k=0;k<schedule.length;k++){
+        if(schedule[k].isImportant === true) {
+            importantTasks.push(schedule[k]);
+        } else {
+            nonImportantTasks.push(schedule[k])
+        }
+    }
+    console.log(importantTasks)
+    //Fisher-Yates Shuffle https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    function shuffle (array) {
+        var currentIndex=array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+    var shuffledNonImportantTasks = shuffle(nonImportantTasks);
+    return [importantTasks,shuffledNonImportantTasks];
+}
+//question about scoping inside for loop and outside, can you use the same variable?
+// durationSort(priorityList)
 
 
 
@@ -224,7 +243,7 @@ window.addEventListener('load', (event) => {
 
 //Carousel script
 
-var slideIndex = 5;
+var slideIndex = 4;
 showSlides(slideIndex);
 
 // Next/previous controls
@@ -242,14 +261,85 @@ function showSlides(n) {
   var slides = document.getElementsByClassName("mySlides");
   if (n > slides.length) {slideIndex = n - 1}
   if (n < 1) {slideIndex = n + 1}
+
+  //Remove the slide arrow on the first and last page
+  var backButton = document.getElementById("previous");
+  var nextButton = document.getElementById('next');
+
   for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
-  }
-  slides[slideIndex-1].style.display = "block";
-}
+    }
+    if(n === 1) {backButton.style.display = 'none'} else {backButton.style.display = 'block'}
+    if(n === slides.length) {nextButton.style.display = 'none'} else {nextButton.style.display = 'block'}
+    slides[slideIndex-1].style.display = "block";
 
-console.log('hello')
+  //Change the progress bar based on the slide
+  var progressBar = document.getElementById("progress-bar");
+  if (n === 1) {progressBar.value = 0;}
+  else if (n===2) {progressBar.value = 25;}
+  else if (n===3) {progressBar.value = 50;}
+  else if (n===4) {progressBar.value = 75;}
+  else if (n===5) {progressBar.value = 100;}
+
+}
 
 /*************************************** IDEAS / QUESTIONS *******************************************
  * 1) How do we come up with a way to effectively read whick task number it is
  */
+
+ function Task (task, duration, isImportant) {
+    this.task = task;
+    this.duration = duration;
+    this.isImportant = isImportant;
+}
+
+const newTask = new Task('Eat pie', '0.5', true);
+
+var priorityLetters = ['a','b','c'];
+
+function getTasks() {
+    for(let i = 0; i < priorityLetters.length; i++){
+        console.log(priorityLetters[i])
+        for(let j = 1; j <= priorityIndex[priorityLetters[i]]; j++) {
+            var taskValue = document.getElementById(`${priorityLetters[i]}-${j}-task`).value
+            var durationValue = document.getElementById(`${priorityLetters[i]}-${j}-duration`).value
+            if(document.getElementById(`${priorityLetters[i]}-${j}-checkbox`) === null) {return false;}
+            var checkedValue = document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked
+            
+            console.log(priorityLetters[i])
+            //Retreive and push onto array: task name, duration, and whether it's important
+            if(priorityLetters[i] === 'a') {
+                aPriority.push(new Task(taskValue,durationValue,checkedValue))
+                document.getElementById(`${priorityLetters[i]}-${j}-task`).value = '';
+                document.getElementById(`${priorityLetters[i]}-${j}-duration`).value = '';
+                document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked = null;
+            }
+            else if(priorityLetters[i] === 'b') {
+                bPriority.push(new Task(taskValue,durationValue,checkedValue))
+                document.getElementById(`${priorityLetters[i]}-${j}-task`).value = '';
+                document.getElementById(`${priorityLetters[i]}-${j}-duration`).value = '';
+                document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked = null;
+            }
+            if(priorityLetters[i] === 'c') {
+                cPriority.push(new Task(taskValue,durationValue,checkedValue))
+                document.getElementById(`${priorityLetters[i]}-${j}-task`).value = '';
+                document.getElementById(`${priorityLetters[i]}-${j}-duration`).value = '';
+                document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked = null;
+            }
+        }
+    }
+    console.log(priorityList)
+    durationSort(priorityList);
+
+    // plusSlides(slideIndex)
+
+    var randomSort = durationSort(priorityList);
+    for(let i=0; i<randomSort.length;i++) {
+        for(let j=0; j<randomSort[i].length;j++){
+            document.getElementById('schedule-box').innerHTML +=
+            "<tr> <td class=\"grid-item\">" + "N/A" +
+            "</td><td class=\"grid-item\">" + randomSort[i][j].task +
+            "</td><td class=\"grid-item\">" + randomSort[i][j].duration + " hour" + "</td> </tr>";
+        }
+    }
+}

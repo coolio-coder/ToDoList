@@ -15,9 +15,11 @@
 
 			<div class="mySlides fade">
 				<p class='title is-1'>Creating your tasks</p>
-				<a class='subtitle is-3'>The purpose of this app is to make your life easier by generating a list of your tasks in 30 minute segments.</a>
-				<br>
-				<a>In each slide, you will be asked how important each tasks </a>
+				<a class='subtitle is-4'>The purpose of this app is to make your life easier by generating a list of your tasks in 30 minute segments.</a>
+				<br><br>
+				<a class='subtitle is-4'>In each slide you will be asked to fill in a task, its duration in hours, and whether the task is important. There are 3 priority levels from highest to lowest.</a>
+				<br><br>
+				<a class='subtitle is-4'>After you hit submit on the last page, the application will prioritize your most important task first, then mixes your non-important task such that you won't get bored of a single task</a>
 			  </div>
 
 
@@ -30,56 +32,57 @@
 				<input class='input'type='text' id='a-1-task' placeholder='Your Task'><br>
 				<input class='input' type='text' id='a-1-duration' placeholder="Duration in Hours"><br>
 				<a class='checkbox' id='a-1-important'>Is the task important?<input type="checkbox" id='a-1-checkbox'></a><br><br>
-				<a class='addTask button is-primary is-small' id='a-priority' onclick="addTask()">+ Add more Task</a><br>
-				<a class='button is-medium is-light is-primary'>Submit your tasks</a>
+				<a class='addTask button is-primary is-small' id='a-1-priority' onclick="addTask()">+ Add more Task</a><br>
 				<br>
 			</div>
-			</div>
-			
-			<div class="mySlides fade">
-				<p class='title is-1'>Medium Priority Tasks</p>
-				<a class='subtitle is-3'>Please list all the tasks that are medium priority. These are the tasks that are on your plate but aren't as important.</a>
-				<br><br><br><br>
+		</div>
+		
+		<div class="mySlides fade">
+			<p class='title is-1'>Medium Priority Tasks</p>
+			<a class='subtitle is-3'>Please list all the tasks that are medium priority. These are the tasks that are on your plate but aren't as important.</a>
+			<br><br><br><br>
 			<div class='tasks' id='b-1'>
 				<p class='subtitle is-4'>Task 1</p>
-			  <input class='input' type='text' placeholder='Your Task'><br>
-			  <input class='input' type='text' placeholder="Duration in Hours"><br>
-			  <a class='checkbox' id='b-1-important'>Is the task important?<input type="checkbox" id='b-1-checkbox'></a><br><br>
-			  <a class='addTask button is-primary is-small' id='b-priority' onclick="addTask()">+ Add more Task</a>
-			  <br>
+				<input class='input' type='text' id='b-1-task' placeholder='Your Task'><br>
+				<input class='input' type='text' id='b-1-duration' placeholder="Duration in Hours"><br>
+				<a class='checkbox' id='b-1-important'>Is the task important?<input type="checkbox" id='b-1-checkbox'></a><br><br>
+				<a class='addTask button is-primary is-small' id='b-priority' onclick="addTask()">+ Add more Task</a>
+				<br>
 			</div>
-			</div>
-			
-			<div class="mySlides fade">
-				<p class='title is-1'>Low Priority Tasks</p>
-				<a class='subtitle is-3'>Please list all the tasks that are your lowest priority. These are the tasks that are not important but nice to have completed.</a>
-				<br><br><br><br>
+		</div>
+		
+		<div class="mySlides fade">
+			<p class='title is-1'>Low Priority Tasks</p>
+			<a class='subtitle is-3'>Please list all the tasks that are your lowest priority. These are the tasks that are not important but nice to have completed.</a>
+			<br><br><br><br>
 			<div class='tasks' id='c-1'>
 				<p class='subtitle is-4'>Task 1</p>
-			  <input class='input' type='text' placeholder='Your Task'><br>
-			  <input class='input' type='text' placeholder="Duration in Hours"><br>
-			  <a class='checkbox' id='c-1-important'>Is the task important?<input type="checkbox" id='b-1-checkbox'></a><br><br>
-			  <a class='addTask button is-primary is-small' id='c-priority' onclick="addTask()">+ Add more Task</a>
-			  <br>
+				<input class='input' type='text' id='c-1-task' placeholder='Your Task'><br>
+				<input class='input' type='text' id='c-1-duration' placeholder="Duration in Hours"><br>
+				<a class='checkbox' id='c-1-important'>Is the task important?<input type="checkbox" id='c-1-checkbox'></a><br><br>
+				<a class='addTask button is-primary is-small' id='c-priority' onclick="addTask()">+ Add more Task</a>
+				<br>
 			</div>
-			</div>
-
-			<div class='mySlides fade'>
-				<p class='title is-1'>Your Custom Schedule</p>
-				<table class='table is-bordered is-striped is-narrow is-hoverable' id='schedule-box'>
-					<tr>
-						<th title='Time'>Time</th>
-						<th title='Task'>Task</th>
+			<br><br>
+			<a class='button is-medium is-light is-primary' onclick="getTasks()">Submit your tasks</a>
+		</div>
+		
+		<div class='mySlides fade'>
+			<p class='title is-1'>Your Custom Schedule</p>
+			<table class='table is-bordered is-striped is-narrow is-hoverable' id='schedule-box'>
+				<tr>
+					<th title='Time'>Time</th>
+					<th title='Task'>Task</th>
 						<th title='Duration'>Duration</th>
 					</tr>
 				</table>
 			</div>
 			
-			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+			<a class="prev" id='previous' onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" id='next' onclick="plusSlides(1)">&#10095;</a>
 			
 			<br>
-			<progress class='progress is-medium' value='25' max='100'></progress>
+			<progress class='progress is-medium' id='progress-bar' value='25' max='100'></progress>
 		</div>
 			
 			<!-- <div style="text-align:center">
