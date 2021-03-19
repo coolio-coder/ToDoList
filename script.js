@@ -1,3 +1,5 @@
+//Tasks array that will contained 
+
 //We want to sort elements given their priority//
 
 //Ways to sort//
@@ -243,7 +245,7 @@ var durationSort = (arr) => {
 
 //Carousel script
 
-var slideIndex = 4;
+var slideIndex = 1;
 showSlides(slideIndex);
 
 // Next/previous controls
