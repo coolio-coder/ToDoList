@@ -1,5 +1,102 @@
 //We want to sort elements given their priority//
 
+// INITIAL HTML CODE FOR THE WEBPAGE
+
+//First page
+window.addEventListener('load', (event) => {
+    //CODE TO ADD CONTENT TO THE INDEX PAGE
+    if (window.location.href.match('index.html') != null) {
+        const section = document.createElement('section');
+        const subtitleDiv = document.createElement('div');
+        const titleP = document.createElement('p');
+        const nextButton = document.createElement('a');
+
+        section.className = 'intro-screen';
+        section.innerHTML = "<div class='container center' id='test'></div>";
+        titleP.className = 'title is-1';
+        titleP.innerHTML = 'Welcome to Auto-tasker';
+        subtitleDiv.className = 'subtitle is-4';
+        subtitleDiv.innerHTML = 'Turn your life around one automated task at a time';
+        nextButton.className = 'button is-primary is-medium is-outlined is-centered';
+        nextButton.href = 'carousel.html';
+        nextButton.innerHTML = 'Click to Get Started';
+
+        document.body.appendChild(section);
+        document.getElementById('test').appendChild(titleP);
+        document.getElementById('test').appendChild(subtitleDiv);
+        document.getElementById('test').appendChild(nextButton);
+    } 
+    //CODE TO ADD CONTENT TO THE TASK INPUT PAGE
+    if (window.location.href.match('carousel.html') != null) {
+        const slideshowContainer = document.createElement('div');
+        var mySlidesTitle = document.createElement('div');
+        var mySlidesHighTasks = document.createElement('div');
+            var titleP = document.createElement('p');
+
+
+
+        var backButton = document.createElement('a');
+        var nextButton = document.createElement('a');
+        
+        slideshowContainer.className = 'slideshow-container';
+        slideshowContainer.id = 'slideshowContainer';
+
+        mySlidesTitle.className = 'mySlides fade'
+        mySlidesTitle.id = 'title'
+        mySlidesTitle.innerHTML = "<p class='title is-1'>Creating your tasks</p><a class='subtitle is-4'>The purpose of this app is to make your life easier by generating a list of your tasks in 30 minute segments.</a><br><br><a class='subtitle is-4'>In each slide you will be asked to fill in a task, its duration in hours, and whether the task is important. There are 3 priority levels from highest to lowest.</a><br><br><a class='subtitle is-4'>After you hit submit on the last page, the application will prioritize your most important task first, then mixes your non-important task such that you won't get bored of a single task</a>";
+
+        mySlidesHighTasks.className = 'mySlides fade';
+        mySlidesHighTasks.id = 'highTasks';
+        
+
+        slideshowContainer.innerHTML = '<a class="prev" id="previous" onclick="plusSlides(-1)">&#10094;</a><a class="next" id="next" onclick="plusSlides(1)">&#10095;</a>';
+        // backButton.className='prev';
+        // backButton.id='previous';
+        // backButton.onclick = plusSlides;
+        // backButton.innerHTML = '&#10094';
+
+        // nextButton.className='next';
+        // nextButton.id='next';
+        // nextButton.onclick = plusSlides(1);
+        // nextButton.innerHTML = '&#10095';
+
+        document.body.appendChild(slideshowContainer);
+        document.body.appendChild()
+        document.getElementById('slideshowContainer').appendChild(mySlidesTitle)
+        document.getElementById('slideshowContainer').appendChild(backButton)
+        document.getElementById('slideshowContainer').appendChild(nextButton)
+    } 
+
+    // var randomSort = durationSort(priorityList);
+    // for(let i=0; i<randomSort.length;i++) {
+    //     for(let j=0; j<randomSort[i].length;j++){
+    //         document.getElementById('schedule-box').innerHTML +=
+    //         "<tr> <td class=\"grid-item\">" + "N/A" +
+    //         "</td><td class=\"grid-item\">" + randomSort[i][j].task +
+    //         "</td><td class=\"grid-item\">" + randomSort[i][j].duration + " hour" + "</td> </tr>";
+    //     }
+    // }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Ways to sort//
 
 //1) Sort by duration without alotted time or percentage
@@ -11,50 +108,6 @@
 var aPriority = [],
     bPriority = [],
     cPriority = [];
-
-// var firstPriority = [
-//     {
-//         task: 'Work on the Odin Project',
-//         duration: 2,
-//         important: true,
-//     },
-//     {
-//         task:'Work on independent project',
-//         duration: 3,
-//         important: true,
-//     }
-// ];
-// var secondPriority = [
-//     {
-//         task: 'Read Algorithm Design Manual',
-//         duration: 2,
-//         important: true,
-//     }
-// ];
-// var thirdPriority = [
-//     {
-//         task: 'Work on Code Wars Questions', 
-//         duration: 1.5,
-//         important: false,
-//     },
-//     {
-//         task: 'Work on Leet Code Questions',
-//         duration: 2,
-//         important: false,
-//     }
-// ];
-// var fourthPriority = [
-//     {
-//         task: 'Read "Learning SQL"',
-//         duration: 1.5,
-//         important: false,
-//     },
-//     {
-//         task: 'Watch video on Graph Theory',
-//         duration: 1,
-//         important: false,
-//     }
-// ];
 
 var priorityList = [aPriority, bPriority, cPriority];
 console.log(priorityList)
@@ -103,13 +156,15 @@ function addTask () {
     var aText = document.createElement('a');
     const checkboxInput = document.createElement('input');
     var linebreak = document.createElement('br');
-    const addTaskbutton = document.createElement('a');
+    // const addTaskbutton = document.createElement('a');
 
     //Remove the button
     
     //Examine the index of the add button and tasks 
-    console.log(document.getElementById(event.srcElement.parentNode.id).id.charAt(0))
-    var priorityDegree = document.getElementById(event.srcElement.parentNode.id).id.charAt(0);
+    var firstTaskId = event.target.parentNode.querySelectorAll("div")[0].id;
+    console.log(event.target.parentNode.querySelectorAll("div")[0].id)
+    console.log(document.getElementById(firstTaskId).id.charAt(0))
+    var priorityDegree = document.getElementById(firstTaskId).id.charAt(0);
     console.log(priorityIndex[`${priorityDegree}`])
     
     console.log(document.getElementById(`${priorityDegree}-${priorityIndex[`${priorityDegree}`]}-priority`))
@@ -141,28 +196,28 @@ function addTask () {
     checkboxInput.type='checkbox';
     checkboxInput.id=`${priorityDegree}-${priorityNumber}-checkbox`;
 
-    addTaskbutton.className='addTask button is-primary is-small';
-    addTaskbutton.id=`${priorityDegree}-${priorityNumber}-priority`;
-    addTaskbutton.innerHTML='+ Add more Task'
+    // addTaskbutton.className='addTask button is-primary is-small';
+    // addTaskbutton.id=`${priorityDegree}-${priorityNumber}-priority`;
+    // addTaskbutton.innerHTML='+ Add more Task'
     
     // console.log(target)
-    document.getElementById(event.srcElement.parentNode.id).appendChild(taskInput);
-    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    document.getElementById(firstTaskId).appendChild(taskInput);
+    document.getElementById(firstTaskId).appendChild(linebreak);
     linebreak = document.createElement('br');
     
-    document.getElementById(event.srcElement.parentNode.id).appendChild(durationInput);
-    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    document.getElementById(firstTaskId).appendChild(durationInput);
+    document.getElementById(firstTaskId).appendChild(linebreak);
     linebreak = document.createElement('br');
     
-    document.getElementById(event.srcElement.parentNode.id).appendChild(aText);
+    document.getElementById(firstTaskId).appendChild(aText);
     document.getElementById(aText.id).appendChild(checkboxInput);
     aText = document.createElement('a');
-    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    document.getElementById(firstTaskId).appendChild(linebreak);
     linebreak = document.createElement('br');
     
-    document.getElementById(event.srcElement.parentNode.id).appendChild(addTaskbutton);
+    // document.getElementById(firstTaskId).appendChild(addTaskbutton);
     
-    document.getElementById(event.srcElement.parentNode.id).appendChild(linebreak);
+    document.getElementById(firstTaskId).appendChild(linebreak);
     linebreak = document.createElement('br');
     
     
@@ -236,18 +291,14 @@ var durationSort = (arr) => {
 //question about scoping inside for loop and outside, can you use the same variable?
 // durationSort(priorityList)
 
-
-
-
-
-
 //Carousel script
 
-var slideIndex = 4;
-showSlides(slideIndex);
+var slideIndex = 1;
+// showSlides(slideIndex);
 
 // Next/previous controls
 function plusSlides(n) {
+  console.log('hey')
   showSlides(slideIndex += n);
 }
 
