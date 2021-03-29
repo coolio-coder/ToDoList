@@ -1,3 +1,5 @@
+//Tasks array that will contained 
+
 //We want to sort elements given their priority//
 
 // INITIAL HTML CODE FOR THE WEBPAGE
@@ -500,6 +502,7 @@ var durationSort = (arr) => {
 
 //Carousel script
 
+<<<<<<< HEAD
 // window.addEventListener('load', (event) => {
 //     //CODE TO ADD CONTENT TO THE INDEX PAGE
 // if (window.location.href.match('carousel.html') != null) {
@@ -511,6 +514,15 @@ var durationSort = (arr) => {
     console.log('hey')
     showSlides(slideIndex += n);
     }
+=======
+var slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+>>>>>>> 61728b678e00a30fea0b9374c252896d2c757ea0
 
     // Thumbnail image controls
     function currentSlide(n) {
