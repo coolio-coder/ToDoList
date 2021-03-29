@@ -160,3 +160,12 @@ img {vertical-align: middle;}
   text-align: center;
   margin: auto;
 }
+
+#progress-bar {
+  width: 65%;
+  margin-top: 30px;
+}
+
+#submit-button {
+  margin-top: 45px;
+}
