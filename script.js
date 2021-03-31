@@ -6,6 +6,36 @@
 
 //First page
 window.addEventListener('load', (event) => {
+    const mainNav = document.createElement('nav');
+        const navBarBrand = document.createElement('div')
+            const navBarLogoContainer = document.createElement('a');
+                const logoImg = document.createElement('img');
+            const buttons = document.createElement('a');
+                var spans = document.createElement('span');
+        const navMenu = document.createElement('div');
+            const navBarStart = document.createElement('div')
+                const homeOption = document.createElement('a');
+                const documentationOption =document.createElement('a');
+    
+    mainNav.className="navbar";
+    mainNav.role='navigation';
+    mainNav.id='mainNav'
+        navBarBrand.className='navbar-brand';
+        navBarBrand.id='navBarBrand';
+            navBarLogoContainer.className='navbar-item';
+            navBarLogoContainer.id='navBarLogoContainer';
+                logoImg.src='todolist-logo.jpg';
+                logoImg.id='logo-img';
+        buttons.role='button';
+        buttons.class='navbar-burger';
+
+    document.body.appendChild(mainNav);
+    document.getElementById('mainNav').appendChild(navBarBrand);
+    document.getElementById('navBarBrand').appendChild(navBarLogoContainer);
+    document.getElementById('navBarLogoContainer').appendChild(logoImg);
+    document.getElementById('mainNav').appendChild(buttons);
+    
+
     //CODE TO ADD CONTENT TO THE INDEX PAGE
     if (window.location.href.match('index.html') != null) {
         const section = document.createElement('section');
@@ -86,6 +116,7 @@ window.addEventListener('load', (event) => {
 
         mySlidesHighTasks.className = 'mySlides fade';
         mySlidesHighTasks.id = 'highTasks';
+        mySlidesHighTasks.style = 'display: none;'
             highTitle.className='title is-1';
             highTitle.innerHTML='Highest Priority Tasks'
             highSubtitle.className='subtitle is-4'
@@ -119,6 +150,7 @@ window.addEventListener('load', (event) => {
         
         mySlidesMedTasks.className = 'mySlides fade';
         mySlidesMedTasks.id = 'medTasks';
+        mySlidesMedTasks.style = 'display: none;'
             medTitle.className='title is-1';
             medTitle.innerHTML='Medium Priority Tasks'
             medSubtitle.className='subtitle is-4'
@@ -152,6 +184,7 @@ window.addEventListener('load', (event) => {
 
         mySlidesLowTasks.className = 'mySlides fade';
         mySlidesLowTasks.id = 'lowTasks';
+        mySlidesLowTasks.style = 'display: none;'
             lowTitle.className='title is-1';
             lowTitle.innerHTML='Lowest Priority Tasks'
             lowSubtitle.className='subtitle is-4'
@@ -185,6 +218,7 @@ window.addEventListener('load', (event) => {
             submitButton.className='button is-medium is-light is-primary';
             submitButton.id='submit-button'
             submitButton.onclick=getTasks;
+            // submitButton.href="SchedulePage.html";
             submitButton.innerHTML='Submit your tasks'
         
         //Back and next buttons
@@ -256,7 +290,7 @@ window.addEventListener('load', (event) => {
                 linebreak = document.createElement('br');
                 
                 document.getElementById('b-1').appendChild(medaText);
-                document.getElementById(highaText.id).appendChild(medcheckboxInput);
+                document.getElementById(medaText.id).appendChild(medcheckboxInput);
                 aText = document.createElement('b');
                 document.getElementById('b-1').appendChild(linebreak);
                 linebreak = document.createElement('br');
@@ -288,7 +322,7 @@ window.addEventListener('load', (event) => {
                 linebreak = document.createElement('br');
                 
                 document.getElementById('c-1').appendChild(lowaText);
-                document.getElementById(highaText.id).appendChild(lowcheckboxInput);
+                document.getElementById(lowaText.id).appendChild(lowcheckboxInput);
                 aText = document.createElement('c');
                 document.getElementById('c-1').appendChild(linebreak);
                 linebreak = document.createElement('br');
@@ -301,6 +335,45 @@ window.addEventListener('load', (event) => {
 
             document.getElementById('slideshowContainer').appendChild(progressBar)
     } 
+    if (window.location.href.match('SchedulePage.html') != null) {
+        var slideContainer = document.createElement('div');
+        var scheduleDiv = document.createElement('div');
+            var scheduleTitleP = document.createElement('p');
+            var scheduleTable = document.createElement('table');
+            var tableRow = document.createElement('tr');
+            var tableTimeHead = document.createElement('th');
+            var tableTaskHead = document.createElement('th');
+            var tableDurationHead = document.createElement('th');
+        
+        //Assign Classes and Ids
+        slideContainer.className='slideshow-container';
+        slideContainer.id='main-container';
+
+        scheduleDiv.className='mySlides fade';
+        scheduleDiv.id='scheduleDiv';
+        scheduleDiv.style='display:block'
+            scheduleTitleP.className='title is-1';
+            scheduleTitleP.innerHTML='Your Custom Schedule';
+            scheduleTable.className='table is-bordered is-striped is-narrow is-hoverable';
+            scheduleTable.id='schedule-box';
+            tableRow.id='tableHead';
+                tableTimeHead.title='Time';
+                tableTimeHead.innerHTML='Time';
+                tableTaskHead.title='Task';
+                tableTaskHead.innerHTML='Task';
+                tableDurationHead.title='Duration';
+                tableDurationHead.innerHTML='Duration';
+        
+        //Append the elements to the HTML body
+        document.body.appendChild(slideContainer);
+        document.getElementById('main-container').appendChild(scheduleDiv)
+        document.getElementById('scheduleDiv').appendChild(scheduleTitleP);
+        document.getElementById('scheduleDiv').appendChild(scheduleTable);
+        document.getElementById('schedule-box').appendChild(tableRow);
+        document.getElementById('tableHead').appendChild(tableTimeHead);
+        document.getElementById('tableHead').appendChild(tableTaskHead);
+        document.getElementById('tableHead').appendChild(tableDurationHead);
+    }
 })
 
 
@@ -502,11 +575,10 @@ var durationSort = (arr) => {
 
 //Carousel script
 
-<<<<<<< HEAD
 // window.addEventListener('load', (event) => {
 //     //CODE TO ADD CONTENT TO THE INDEX PAGE
-// if (window.location.href.match('carousel.html') != null) {
-    var slideIndex = 2;
+if (window.location.href.match('carousel.html') != null) {
+    var slideIndex = 1;
     // showSlides(slideIndex);
 
     // Next/previous controls
@@ -514,15 +586,6 @@ var durationSort = (arr) => {
     console.log('hey')
     showSlides(slideIndex += n);
     }
-=======
-var slideIndex = 1;
-showSlides(slideIndex);
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
->>>>>>> 61728b678e00a30fea0b9374c252896d2c757ea0
 
     // Thumbnail image controls
     function currentSlide(n) {
@@ -554,7 +617,7 @@ function plusSlides(n) {
     else if (n===4) {progressBar.value = 75;}
     else if (n===5) {progressBar.value = 100;}
     }
-// }})
+}
 
 
 
