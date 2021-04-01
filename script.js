@@ -553,7 +553,7 @@ function addTime (initialTime, moreTime) {
 var durationSort = (arr) => {
     var schedule = [];
     //Pick a random task in each priority
-    for(let i=1;i<arr.length;i++) {
+    for(let i=0;i<arr.length;i++) {
         var pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
         //separate the tasks into 30minute segments
         var multiplier = (pickedTask.duration / 0.5)
@@ -564,10 +564,8 @@ var durationSort = (arr) => {
     }
     var importantTasks = [];
     var nonImportantTasks = [];
-
     console.log(schedule.length)
     console.log(schedule)
-
     //sorting the schedule based on importance
     for(let k=0;k<schedule.length;k++){
         if(schedule[k].isImportant === true) {
@@ -580,20 +578,16 @@ var durationSort = (arr) => {
     //Fisher-Yates Shuffle https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     function shuffle (array) {
         var currentIndex=array.length, temporaryValue, randomIndex;
-
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
-
             // Pick a remaining element...
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex -= 1;
-
             // And swap it with the current element.
             temporaryValue = array[currentIndex];
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
         }
-
         return array;
     }
     var shuffledNonImportantTasks = shuffle(nonImportantTasks);
