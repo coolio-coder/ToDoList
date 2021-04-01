@@ -173,3 +173,8 @@ img {vertical-align: middle;}
 #logo-img{
  height: 2em;
 }
+
+#start-time {
+  width: 30%;
+  margin-top: 30px;
+}

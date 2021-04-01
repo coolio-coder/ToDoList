@@ -112,7 +112,7 @@ window.addEventListener('load', (event) => {
         mySlidesTitle.className = 'mySlides fade'
         mySlidesTitle.id = 'title'
         mySlidesTitle.style = 'display: block;'
-        mySlidesTitle.innerHTML = "<p class='title is-1'>Creating your tasks</p><a class='subtitle is-4'>The purpose of this app is to make your life easier by generating a list of your tasks in 30 minute segments.</a><br><br><a class='subtitle is-4'>In each slide you will be asked to fill in a task, its duration in hours, and whether the task is important. There are 3 priority levels from highest to lowest.</a><br><br><a class='subtitle is-4'>After you hit submit on the last page, the application will prioritize your most important task first, then mixes your non-important task such that you won't get bored of a single task</a>";
+        mySlidesTitle.innerHTML = "<p class='title is-1'>Creating your tasks</p><a class='subtitle is-4'>The purpose of this app is to make your life easier by generating a list of your tasks in 30 minute segments.</a><br><br><a class='subtitle is-4'>In each slide you will be asked to fill in a task, its duration in hours, and whether the task is important. There are 3 priority levels from highest to lowest.</a><br><br><a class='subtitle is-4'>After you hit submit on the last page, the application will prioritize your most important task first, then mixes your non-important task such that you won't get bored of a single task</a> <br><br> <a class ='subtitle is-4'>⌛ Enter your start time below to get started.⌛</a><input type='time' class='input' id='start-time'>";
 
         mySlidesHighTasks.className = 'mySlides fade';
         mySlidesHighTasks.id = 'highTasks';
@@ -515,10 +515,45 @@ function addTask () {
     
 }
 
+function addTime (initialTime, moreTime) {
+    var hour = parseInt(initialTime.split(':')[0]);
+    var minute = parseInt(initialTime.split(':')[1]);
+    minute += moreTime;
+    if (minute >= 60) {
+        if(minute % 60 >= 0) {
+            hour = hour + minute/60;
+            minute = minute % 60;
+        }
+        if (hour > 24) {
+            hour = 0;
+        } 
+    }
+    if (hour.toString().length < 2) {hour = String(0+hour)}
+    if (minute.toString().length < 2) {
+        if(minute == 0) {minute = String('00') 
+        }
+        else {minute = String(0+minute)
+        }
+    }
+    
+    console.log([hour, minute].join(':'))
+    return [hour, minute].join(':')
+}
+
+// for(let i = 0; i<8; i++){
+//     if (i = 0) {
+//         var tempTime = "10:30"
+//         var currentTime = addTime('10:30', 30)
+//         console.log(currentTime)
+//     } else {
+//         addTime(currentTime, 30)
+//     }
+// }
+
 var durationSort = (arr) => {
     var schedule = [];
     //Pick a random task in each priority
-    for(let i=0;i<arr.length;i++) {
+    for(let i=1;i<arr.length;i++) {
         var pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
         //separate the tasks into 30minute segments
         var multiplier = (pickedTask.duration / 0.5)
@@ -605,10 +640,9 @@ if (window.location.href.match('carousel.html') != null) {
     //Change the progress bar based on the slide
     var progressBar = document.getElementById("progress-bar");
     if (n === 1) {progressBar.value = 0;}
-    else if (n===2) {progressBar.value = 25;}
-    else if (n===3) {progressBar.value = 50;}
-    else if (n===4) {progressBar.value = 75;}
-    else if (n===5) {progressBar.value = 100;}
+    else if (n===2) {progressBar.value = 33;}
+    else if (n===3) {progressBar.value = 66;}
+    else if (n===4) {progressBar.value = 100;}
     }
 }
 
@@ -659,14 +693,16 @@ function getTasks() {
         }
     }
     // console.log(priorityList)
+    priorityList
     durationSort(priorityList);
 
     //Execute the randomSort function 
     var randomSort = durationSort(priorityList);
+    console.log(randomSort)
     sessionStorage.setItem("tasks", JSON.stringify(randomSort));
     
     //Redirect users to another page
-    location.replace("SchedulePage.html")
+    // location.replace("SchedulePage.html")
 }
 
 function restartSchedule () {
