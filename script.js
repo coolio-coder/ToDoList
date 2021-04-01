@@ -1,6 +1,6 @@
 //Tasks array that will contained 
+localStorage.setItem('name', 'Bill');
 
-//We want to sort elements given their priority//
 
 // INITIAL HTML CODE FOR THE WEBPAGE
 
@@ -344,6 +344,7 @@ window.addEventListener('load', (event) => {
             var tableTimeHead = document.createElement('th');
             var tableTaskHead = document.createElement('th');
             var tableDurationHead = document.createElement('th');
+        var restartButton = document.createElement('a')
         
         //Assign Classes and Ids
         slideContainer.className='slideshow-container';
@@ -363,6 +364,10 @@ window.addEventListener('load', (event) => {
                 tableTaskHead.innerHTML='Task';
                 tableDurationHead.title='Duration';
                 tableDurationHead.innerHTML='Duration';
+        restartButton.className='button is-danger';
+        restartButton.onclick=restartSchedule;
+        restartButton.innerHTML='Create a New Schedule';
+        restartButton.style='margin-top: 30px';
         
         //Append the elements to the HTML body
         document.body.appendChild(slideContainer);
@@ -373,6 +378,20 @@ window.addEventListener('load', (event) => {
         document.getElementById('tableHead').appendChild(tableTimeHead);
         document.getElementById('tableHead').appendChild(tableTaskHead);
         document.getElementById('tableHead').appendChild(tableDurationHead);
+        document.getElementById('main-container').appendChild(restartButton)
+
+    //Get session storage
+    var storedArray = JSON.parse(sessionStorage.getItem("tasks"));
+
+    //For loop to get all the information from the random sort array and place them on a table
+    for(let i=0; i<storedArray.length;i++) {
+        for(let j=0; j<storedArray[i].length;j++){
+            document.getElementById('schedule-box').innerHTML +=
+            "<tr> <td class=\"grid-item\">" + "N/A" +
+            "</td><td class=\"grid-item\">" + storedArray[i][j].task +
+            "</td><td class=\"grid-item\">" + storedArray[i][j].duration + " hour" + "</td> </tr>";
+        }
+}
     }
 })
 
@@ -400,7 +419,6 @@ var alottedTime = 5;
 
 //Step 2a: Users can change the distribution percentage of how each group should be prioritized. They will enter a whole number like 60%, and then the program will covert to 0.60.
 
-
 var firstPercentage = 0.60;
 var secondPercentage = 0.20;
 var thirdPercentage = 0.15;
@@ -412,13 +430,6 @@ var firstTime = alottedTime * firstPercentage;
 var secondTime = alottedTime * secondPercentage;
 var thirdTime = alottedTime * thirdPercentage;
 var fourthTime = alottedTime * fourthPercentage;
-
-// console.log(firstTime);
-// console.log(secondTime);
-// console.log(thirdTime);
-// console.log(fourthTime);
-
-
 
 //Add task options
 
@@ -502,24 +513,7 @@ function addTask () {
     document.getElementById(firstTaskId).appendChild(linebreak);
     linebreak = document.createElement('br');
     
-    
-    // addTaskbutton.addEventListener('click', addTask())
-    // addTaskbutton.onclick = addTask();
-    
 }
-
-// window.addEventListener('load', (event) => {
-//     var randomSort = durationSort(priorityList);
-//     for(let i=0; i<randomSort.length;i++) {
-//         for(let j=0; j<randomSort[i].length;j++){
-//             document.getElementById('schedule-box').innerHTML +=
-//             "<tr> <td class=\"grid-item\">" + "N/A" +
-//             "</td><td class=\"grid-item\">" + randomSort[i][j].task +
-//             "</td><td class=\"grid-item\">" + randomSort[i][j].duration + " hour" + "</td> </tr>";
-//         }
-//     }
-// })
-
 
 var durationSort = (arr) => {
     var schedule = [];
@@ -583,7 +577,6 @@ if (window.location.href.match('carousel.html') != null) {
 
     // Next/previous controls
     function plusSlides(n) {
-    console.log('hey')
     showSlides(slideIndex += n);
     }
 
@@ -618,7 +611,6 @@ if (window.location.href.match('carousel.html') != null) {
     else if (n===5) {progressBar.value = 100;}
     }
 }
-
 
 
 /*************************************** IDEAS / QUESTIONS *******************************************
@@ -666,18 +658,32 @@ function getTasks() {
             }
         }
     }
-    console.log(priorityList)
+    // console.log(priorityList)
     durationSort(priorityList);
 
-    // plusSlides(slideIndex)
-
+    //Execute the randomSort function 
     var randomSort = durationSort(priorityList);
-    for(let i=0; i<randomSort.length;i++) {
-        for(let j=0; j<randomSort[i].length;j++){
-            document.getElementById('schedule-box').innerHTML +=
-            "<tr> <td class=\"grid-item\">" + "N/A" +
-            "</td><td class=\"grid-item\">" + randomSort[i][j].task +
-            "</td><td class=\"grid-item\">" + randomSort[i][j].duration + " hour" + "</td> </tr>";
-        }
-    }
+    sessionStorage.setItem("tasks", JSON.stringify(randomSort));
+    
+    //Redirect users to another page
+    location.replace("SchedulePage.html")
 }
+
+function restartSchedule () {
+    sessionStorage.removeItem('tasks');
+    location.replace("carousel.html");
+}
+
+// if (window.location.href.match('SchedulePage.html') != null) {
+//     //Get the items from the session Storage
+//     var storedArray = JSON.parse(sessionStorage.getItem("tasks"));
+
+//     //For loop to get all the information from the random sort array and place them on a table
+//     for(let i=0; i<storedArray.length;i++) {
+//         for(let j=0; j<storedArray[i].length;j++){
+//             document.getElementById('schedule-box').innerHTML +=
+//             "<tr> <td class=\"grid-item\">" + "N/A" +
+//             "</td><td class=\"grid-item\">" + storedArray[i][j].task +
+//             "</td><td class=\"grid-item\">" + storedArray[i][j].duration + " hour" + "</td> </tr>";
+//         }
+// }}
