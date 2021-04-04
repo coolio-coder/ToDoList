@@ -381,17 +381,17 @@ window.addEventListener('load', (event) => {
         document.getElementById('main-container').appendChild(restartButton)
 
     //Get session storage
-    var storedArray = JSON.parse(sessionStorage.getItem("tasks"));
+    console.log('stored session')
+    var storedArray = JSON.parse(sessionStorage.getItem("myTasks"));
 
     //For loop to get all the information from the random sort array and place them on a table
-    for(let i=0; i<storedArray.length;i++) {
-        for(let j=0; j<storedArray[i].length;j++){
+    console.log(storedArray)
+        for(let i=0; i<storedArray.length;i++) {
             document.getElementById('schedule-box').innerHTML +=
-            "<tr> <td class=\"grid-item\">" + "N/A" +
-            "</td><td class=\"grid-item\">" + storedArray[i][j].task +
-            "</td><td class=\"grid-item\">" + storedArray[i][j].duration + " hour" + "</td> </tr>";
+            "<tr> <td class=\"grid-item\">" + storedArray[i].time +
+            "</td><td class=\"grid-item\">" + storedArray[i].task +
+            "</td><td class=\"grid-item\">" + storedArray[i].duration + " hour" + "</td> </tr>";
         }
-}
     }
 })
 
@@ -536,9 +536,11 @@ function addTime (initialTime, moreTime) {
         }
     }
     
-    console.log([hour, minute].join(':'))
+    // console.log([hour, minute].join(':'))
     return [hour, minute].join(':')
 }
+
+addTime('14:30',30)
 
 // for(let i = 0; i<8; i++){
 //     if (i = 0) {
@@ -692,11 +694,25 @@ function getTasks() {
 
     //Execute the randomSort function 
     var randomSort = durationSort(priorityList);
+    var combinedRandomSort = [].concat(randomSort[0],randomSort[1]);
     console.log(randomSort)
-    sessionStorage.setItem("tasks", JSON.stringify(randomSort));
+    console.log(combinedRandomSort);
+
+    //Assign times to each task under random sort
+    var currentTime = document.getElementById('start-time').value;
+    var finalTaskList = [];
+    for(let i=0;i<combinedRandomSort.length;++i){
+        var newTime = currentTime;
+        const newTimedTask = Object.assign({}, combinedRandomSort[i], { time: newTime});
+        finalTaskList.push(newTimedTask);
+        currentTime = addTime(currentTime, 30);
+    }
+    console.log(finalTaskList)
+
+    sessionStorage.setItem("myTasks", JSON.stringify(finalTaskList));
     
     //Redirect users to another page
-    // location.replace("SchedulePage.html")
+    location.replace("SchedulePage.html")
 }
 
 function restartSchedule () {
@@ -704,16 +720,8 @@ function restartSchedule () {
     location.replace("carousel.html");
 }
 
-// if (window.location.href.match('SchedulePage.html') != null) {
-//     //Get the items from the session Storage
-//     var storedArray = JSON.parse(sessionStorage.getItem("tasks"));
+var array = [['a','b'],['c','d']];
+var newArray = [].concat(array[0],array[1])
+console.log(newArray)
 
-//     //For loop to get all the information from the random sort array and place them on a table
-//     for(let i=0; i<storedArray.length;i++) {
-//         for(let j=0; j<storedArray[i].length;j++){
-//             document.getElementById('schedule-box').innerHTML +=
-//             "<tr> <td class=\"grid-item\">" + "N/A" +
-//             "</td><td class=\"grid-item\">" + storedArray[i][j].task +
-//             "</td><td class=\"grid-item\">" + storedArray[i][j].duration + " hour" + "</td> </tr>";
-//         }
-// }}
+// sessionStorage.setItem("tasks", JSON.stringify([].concat(finalTaskList[0],finalTaskList[1])));
