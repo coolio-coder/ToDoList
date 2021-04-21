@@ -362,17 +362,93 @@ function addTime (initialTime, moreTime) {
     return [hour, minute].join(':')
 }
 
+
+var a1 = [
+    {task: 'Sleep',
+     duration: '3',
+     isImportant: true,
+     addToList: true,
+    },
+    {task: 'Study for exam',
+    duration: '2',
+    isImportant: false,
+    addToList: false,
+    },
+    {task: 'Finish Homework',
+    duration: '2',
+    isImportant: false,
+    addToList: true,
+    }
+];
+
+var b1 = [
+    {task: 'Read book',
+     duration: '1.5',
+     isImportant: false,
+     addToList: false,
+    },
+    {task: 'Go to the park',
+    duration: '2',
+    isImportant: false,
+    addToList: false,
+    }
+];
+
+var c1 = [
+    {task: 'Take out trash',
+     duration: '0.5',
+     isImportant: false,
+     addToList: true,
+    }
+];
+
+var exampleTask = [a1,b1,c1];
+
+function addDurationToArray (task, multiplier, array) {
+    for(let j=0;j<multiplier;j++) {
+        const newMiniTask = Object.assign({}, task, { duration: 0.5 });
+        array.push(newMiniTask);
+    }
+}
+
 var durationSort = (arr) => {
-    var schedule = [];
+    var schedule, pickedTask, found, multiplier
+    schedule = [];
     //Pick a random task in each priority
     for(let i=0;i<arr.length;i++) {
-        var pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
-        //separate the tasks into 30minute segments
-        var multiplier = (pickedTask.duration / 0.5)
-        for(let j=0;j<multiplier;j++) {
-            const newMiniTask = Object.assign({}, pickedTask, { duration: 0.5 });
-            schedule.push(newMiniTask);
+        //Test whether there are multiple task we need to add or just one
+        //First, find whether if there's one element we 
+        found = false;
+            //loops through the array to see if there are any elements that has addToList listed as true
+            for(let k=0;k<arr[i].length;++k){
+                if(arr[i][k].addToList === true) {
+                    found = true;
+                    break;
+                }
+            }
+        //if found == true, then we will go back to the array and start 
+        if(found == true) {
+            for(let n=0;n<arr[i].length;++n){
+                if(arr[i][n].addToList === true) {
+                    pickedTask = arr[i][n];
+                    //separate the tasks into 30minute segments
+                    multiplier = (pickedTask.duration / 0.5);
+                    addDurationToArray(pickedTask,multiplier,schedule);
+                    console.log(schedule)
+                }
+            }
+        } 
+        //If found is false, then we pick a random task from the array
+        else {
+            pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
+            multiplier = (pickedTask.duration / 0.5)
+            addDurationToArray(pickedTask, multiplier, schedule);
+            console.log(schedule)
         }
+        // for(let j=0;j<multiplier;j++) {
+        //     const newMiniTask = Object.assign({}, pickedTask, { duration: 0.5 });
+        //     schedule.push(newMiniTask);
+        // }
     }
     var importantTasks = [];
     var nonImportantTasks = [];
@@ -406,6 +482,7 @@ var durationSort = (arr) => {
     return [importantTasks,shuffledNonImportantTasks];
 }
 
+durationSort(exampleTask)
 //question about scoping inside for loop and outside, can you use the same variable?
 // durationSort(priorityList)
 
@@ -481,21 +558,21 @@ function getTasks() {
             
             //Retreive and push onto array: task name, duration, and whether it's important
             if(priorityLetters[i] === 'a') {
-                aPriority.push(new Task(taskValue,durationValue,checkedValue))
+                aPriority.push(new Task(taskValue,durationValue,checkedValue,taskCheckedValue))
                 document.getElementById(`${priorityLetters[i]}-${j}-task`).value = '';
                 document.getElementById(`${priorityLetters[i]}-${j}-duration`).value = '';
                 document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked = null;
                 document.getElementById(`${priorityLetters[i]}-${j}-taskcheckbox`).checked = null;
             }
             else if(priorityLetters[i] === 'b') {
-                bPriority.push(new Task(taskValue,durationValue,checkedValue))
+                bPriority.push(new Task(taskValue,durationValue,checkedValue,taskCheckedValue))
                 document.getElementById(`${priorityLetters[i]}-${j}-task`).value = '';
                 document.getElementById(`${priorityLetters[i]}-${j}-duration`).value = '';
                 document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked = null;
                 document.getElementById(`${priorityLetters[i]}-${j}-taskcheckbox`).checked = null;
             }
             if(priorityLetters[i] === 'c') {
-                cPriority.push(new Task(taskValue,durationValue,checkedValue))
+                cPriority.push(new Task(taskValue,durationValue,checkedValue,taskCheckedValue))
                 document.getElementById(`${priorityLetters[i]}-${j}-task`).value = '';
                 document.getElementById(`${priorityLetters[i]}-${j}-duration`).value = '';
                 document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked = null;
@@ -504,14 +581,13 @@ function getTasks() {
         }
     }
     // console.log(priorityList)
-    priorityList
     durationSort(priorityList);
 
     //Execute the randomSort function 
     var randomSort = durationSort(priorityList);
     var combinedRandomSort = [].concat(randomSort[0],randomSort[1]);
-    console.log(randomSort)
-    console.log(combinedRandomSort);
+    // console.log(randomSort)
+    // console.log(combinedRandomSort);
 
     //Assign times to each task under random sort
     var currentTime = document.getElementById('start-time').value;
