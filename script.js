@@ -411,6 +411,21 @@ function addDurationToArray (task, multiplier, array) {
     }
 }
 
+function shuffle (array) {
+    var currentIndex=array.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
+
 var durationSort = (arr) => {
     var schedule, pickedTask, found, multiplier
     schedule = [];
@@ -464,27 +479,38 @@ var durationSort = (arr) => {
     }
     console.log(importantTasks)
     //Fisher-Yates Shuffle https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-    function shuffle (array) {
-        var currentIndex=array.length, temporaryValue, randomIndex;
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-        return array;
-    }
     var shuffledNonImportantTasks = shuffle(nonImportantTasks);
     return [importantTasks,shuffledNonImportantTasks];
 }
 
-durationSort(exampleTask)
+console.log(durationSort(exampleTask))
+var shf = [].concat(durationSort(exampleTask)[0],durationSort(exampleTask)[1]);
+console.log(shf)
+var shf1 = shuffleAgain(shf)
+var shf2 = shuffleAgain(shf1)
+console.log(shf1)
+console.log(shf2)
 //question about scoping inside for loop and outside, can you use the same variable?
 // durationSort(priorityList)
+
+function shuffleAgain (arr) {
+    var importantTask = [];
+    var nonImportantTasks = [];
+
+    //Isolate the important tasks from the nonImportant Tasks
+    for(let i=0;i<arr.length;++i){
+        if(arr[i].isImportant === true) {
+            importantTask.push(arr[i]);
+        } else {
+            nonImportantTasks.push(arr[i]);
+        }
+    }
+
+    //Shuffle the nonImportantTasks
+    var shuffledNonImportantTasks = shuffle(nonImportantTasks);
+
+    return [].concat(importantTask,shuffledNonImportantTasks);
+} 
 
 //Carousel script
 
@@ -610,9 +636,4 @@ function restartSchedule () {
     sessionStorage.removeItem('tasks');
     location.replace("carousel.html");
 }
-
-var array = [['a','b'],['c','d']];
-var newArray = [].concat(array[0],array[1])
-console.log(newArray)
-
 // sessionStorage.setItem("tasks", JSON.stringify([].concat(finalTaskList[0],finalTaskList[1])));
