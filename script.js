@@ -112,7 +112,9 @@ window.addEventListener('load', (event) => {
             var tableTimeHead = document.createElement('th');
             var tableTaskHead = document.createElement('th');
             var tableDurationHead = document.createElement('th');
-        var restartButton = document.createElement('a')
+        var restartButton = document.createElement('a');
+        var shuffleButton = document.createElement('a');
+        var lineBreak = document.createElement('br');
         
         //Assign Classes and Ids
         slideContainer.className='slideshow-container';
@@ -122,7 +124,7 @@ window.addEventListener('load', (event) => {
         scheduleDiv.id='scheduleDiv';
         scheduleDiv.style='display:block'
             scheduleTitleP.className='title is-1';
-            scheduleTitleP.innerHTML='Your Custom Schedule';
+            scheduleTitleP.innerHTML='Your Schedule';
             scheduleTable.className='table is-bordered is-striped is-narrow is-hoverable';
             scheduleTable.id='schedule-box';
             tableRow.id='tableHead';
@@ -134,8 +136,12 @@ window.addEventListener('load', (event) => {
                 tableDurationHead.innerHTML='Duration';
         restartButton.className='button is-danger';
         restartButton.onclick=restartSchedule;
-        restartButton.innerHTML='Create a New Schedule';
+        restartButton.innerHTML='🗑️Create a New Schedule🗑️';
         restartButton.style='margin-top: 30px';
+        shuffleButton.className='button is-success';
+        shuffleButton.id='shuffle';
+        shuffleButton.innerHTML='🎲Shuffle Your Schedule🎲';
+        shuffleButton.onclick=shuffleSchedule;
         
         //Append the elements to the HTML body
         document.body.appendChild(slideContainer);
@@ -146,7 +152,11 @@ window.addEventListener('load', (event) => {
         document.getElementById('tableHead').appendChild(tableTimeHead);
         document.getElementById('tableHead').appendChild(tableTaskHead);
         document.getElementById('tableHead').appendChild(tableDurationHead);
-        document.getElementById('main-container').appendChild(restartButton)
+        document.getElementById('main-container').appendChild(lineBreak);
+        lineBreak = document.createElement('br');
+        document.getElementById('main-container').appendChild(shuffleButton);
+        document.getElementById('main-container').appendChild(lineBreak);
+        document.getElementById('main-container').appendChild(restartButton);
 
     //Get session storage
     console.log('stored session')
@@ -158,7 +168,42 @@ window.addEventListener('load', (event) => {
             document.getElementById('schedule-box').innerHTML +=
             "<tr> <td class=\"grid-item\">" + storedArray[i].time +
             "</td><td class=\"grid-item\">" + storedArray[i].task +
-            "</td><td class=\"grid-item\">" + storedArray[i].duration + " hour" + "</td> </tr>";
+            "</td><td class=\"grid-item\">" + storedArray[i].duration + " hour";
+        }
+
+        //If users decides to shuffle the schedule
+        function shuffleSchedule () {
+            //Find the current Time
+            var currentTime = storedArray[0]['time'];
+
+            //Empty out the previous table based on class name
+            [...document.getElementsByClassName("grid-item")].map(n => n && n.remove());
+
+            //Shuffle the stored array
+            var shuffledStoredArray = shuffleAgain(storedArray);
+            console.log(shuffledStoredArray)
+            
+            //Assign times to each task under random sort
+            var finalTaskList = [];
+            
+            for(let j=0;j<shuffledStoredArray.length;++j){
+                    shuffledStoredArray[j]['time'] = '';
+                    var newTime = currentTime;
+                    var newTimedTask = Object.assign({}, shuffledStoredArray[j], { time: newTime});
+                    finalTaskList.push(newTimedTask);
+                    currentTime = addTime(currentTime, 30);
+                }
+                
+            //Create new table
+            for(let i=0; i<finalTaskList.length;i++) {
+                document.getElementById('schedule-box').innerHTML +=
+                "<tr> <td class=\"grid-item\">" + finalTaskList[i].time +
+                "</td><td class=\"grid-item\">" + finalTaskList[i].task +
+                "</td><td class=\"grid-item\">" + finalTaskList[i].duration + " hour" + "</td> </tr>";
+            }
+
+            //Declare finalTaskList as the new storedArray
+            storedArray = finalTaskList
         }
     }
 })
@@ -612,8 +657,6 @@ function getTasks() {
     //Execute the randomSort function 
     var randomSort = durationSort(priorityList);
     var combinedRandomSort = [].concat(randomSort[0],randomSort[1]);
-    // console.log(randomSort)
-    // console.log(combinedRandomSort);
 
     //Assign times to each task under random sort
     var currentTime = document.getElementById('start-time').value;
