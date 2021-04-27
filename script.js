@@ -11,7 +11,7 @@ window.addEventListener('load', (event) => {
             const navBarLogoContainer = document.createElement('a');
                 const logoImg = document.createElement('img');
             const buttons = document.createElement('a');
-                var spans = document.createElement('span');
+                let spans = document.createElement('span');
         const navMenu = document.createElement('div');
             const navBarStart = document.createElement('div')
                 const homeOption = document.createElement('a');
@@ -61,13 +61,13 @@ window.addEventListener('load', (event) => {
     //CODE TO ADD CONTENT TO THE TASK INPUT PAGE
     if (window.location.href.match('carousel.html') != null) {
         const slideshowContainer = document.createElement('div');
-        var linebreak = document.createElement('br');
-        var mySlidesTitle = document.createElement('div');
-            var submitButton = document.createElement('a');
+        let  linebreak = document.createElement('br');
+        let  mySlidesTitle = document.createElement('div');
+            let  submitButton = document.createElement('a');
 
-        var backButton = document.createElement('a');
-        var nextButton = document.createElement('a');
-        var progressBar = document.createElement('progress');
+        let  backButton = document.createElement('a');
+        let  nextButton = document.createElement('a');
+        let  progressBar = document.createElement('progress');
         
         slideshowContainer.className = 'slideshow-container';
         slideshowContainer.id = 'slideshowContainer';
@@ -104,18 +104,30 @@ window.addEventListener('load', (event) => {
             document.getElementById('slideshowContainer').appendChild(progressBar)
     } 
     if (window.location.href.match('SchedulePage.html') != null) {
-        var slideContainer = document.createElement('div');
-        var scheduleDiv = document.createElement('div');
-            var scheduleTitleP = document.createElement('p');
-            var scheduleTable = document.createElement('table');
-            var tableRow = document.createElement('tr');
-            var tableTimeHead = document.createElement('th');
-            var tableTaskHead = document.createElement('th');
-            var tableDurationHead = document.createElement('th');
-        var restartButton = document.createElement('a');
-        var shuffleButton = document.createElement('a');
-        var lineBreak = document.createElement('br');
-        
+        let  slideContainer = document.createElement('div');
+        let  scheduleDiv = document.createElement('div');
+            let  scheduleTitleP = document.createElement('p');
+            let  scheduleTable = document.createElement('table');
+            let  tableRow = document.createElement('tr');
+            let  tableTimeHead = document.createElement('th');
+            let  tableTaskHead = document.createElement('th');
+            let  tableDurationHead = document.createElement('th');
+        let  restartButton = document.createElement('a');
+        let  shuffleButton = document.createElement('a');
+        let  lineBreak = document.createElement('br');
+
+        let divDropdown = document.createElement('div');
+            let divDropdownTrig = document.createElement('div');
+                let dropDownbutton = document.createElement('button');
+                let dropDownTitle = document.createElement('span');
+                let dropDownIcon = document.createElement('i');
+            let dropDownMenu = document.createElement("div");
+                let dropDownContent = document.createElement('div');
+                    let dropDownShf1 = document.createElement('a');
+                    let dropDownShf2 = document.createElement('a');
+                    let dropDownShf3 = document.createElement('a');
+                    let dropDownShf4 = document.createElement('a');
+
         //Assign Classes and Ids
         slideContainer.className='slideshow-container';
         slideContainer.id='main-container';
@@ -142,6 +154,33 @@ window.addEventListener('load', (event) => {
         shuffleButton.id='shuffle';
         shuffleButton.innerHTML='🎲Shuffle Your Schedule🎲';
         shuffleButton.onclick=shuffleSchedule;
+
+        divDropdown.className = 'dropdown is-active';
+        divDropdown.id = 'divDropdown';
+            divDropdownTrig.className = 'dropdown-trigger';
+            divDropdownTrig.id = 'divDropdownTrig';
+                dropDownbutton.className = 'button is-info';
+                dropDownbutton.id = 'dropDownbutton';
+                dropDownbutton.setAttribute('aria-haspopup', 'true')
+                dropDownbutton.setAttribute('aria-controls', 'dropdown-menu');
+                    dropDownTitle.innerHTML = 'Set your Shuffle Type';
+                    dropDownTitle.id = 'dropDownTitle';
+                    dropDownIcon.className = 'icon is-small';
+                    dropDownIcon.innerHTML = '<i class="fas fa-angle-down" aria-hidden="true"></i>';
+            dropDownMenu.className = 'dropdown-menu';
+            dropDownMenu.id = 'dropdown-menu';
+            dropDownMenu.role = 'menu';
+                dropDownContent.className = 'dropdown-content';
+                dropDownContent.id = 'dropDownContent';
+                    dropDownShf1.className = 'dropdown-item'
+                    dropDownShf1.innerHTML = 'Default Sort / Fisher Yates'
+                    dropDownShf2.className = 'dropdown-item'
+                    dropDownShf2.innerHTML = 'Alphabet Sort'
+                    dropDownShf3.className = 'dropdown-item'
+                    dropDownShf3.innerHTML = 'Reverse Alphabet Sort'
+                    dropDownShf4.className = 'dropdown-item'
+                    dropDownShf4.innerHTML = 'Dispersed Sort'
+
         
         //Append the elements to the HTML body
         document.body.appendChild(slideContainer);
@@ -154,13 +193,30 @@ window.addEventListener('load', (event) => {
         document.getElementById('tableHead').appendChild(tableDurationHead);
         document.getElementById('main-container').appendChild(lineBreak);
         lineBreak = document.createElement('br');
+        document.getElementById('main-container').appendChild(lineBreak);
+
+        document.getElementById('main-container').appendChild(divDropdown);
+            document.getElementById('divDropdown').appendChild(divDropdownTrig);
+            document.getElementById('divDropdownTrig').appendChild(dropDownbutton);
+                document.getElementById('dropDownbutton').appendChild(dropDownTitle);
+                document.getElementById('dropDownbutton').appendChild(dropDownIcon);
+            document.getElementById('divDropdown').appendChild(dropDownMenu);
+                document.getElementById('dropdown-menu').appendChild(dropDownContent);
+                    document.getElementById('dropDownContent').appendChild(dropDownShf1);
+                    document.getElementById('dropDownContent').appendChild(dropDownShf2);
+                    document.getElementById('dropDownContent').appendChild(dropDownShf3);
+                    document.getElementById('dropDownContent').appendChild(dropDownShf4);
+
+        document.getElementById('main-container').appendChild(lineBreak);
+        lineBreak = document.createElement('br');
         document.getElementById('main-container').appendChild(shuffleButton);
         document.getElementById('main-container').appendChild(lineBreak);
         document.getElementById('main-container').appendChild(restartButton);
 
+
     //Get session storage
     console.log('stored session')
-    var storedArray = JSON.parse(sessionStorage.getItem("myTasks"));
+    let  storedArray = JSON.parse(sessionStorage.getItem("myTasks"));
 
     //For loop to get all the information from the random sort array and place them on a table
     console.log(storedArray)
@@ -174,26 +230,26 @@ window.addEventListener('load', (event) => {
         //If users decides to shuffle the schedule
         function shuffleSchedule () {
             //Find the current Time
-            var currentTime = storedArray[0]['time'];
+            let  currentTime = storedArray[0]['time'];
 
             //Empty out the previous table based on class name
             [...document.getElementsByClassName("grid-item")].map(n => n && n.remove());
 
             //Shuffle the stored array
-            var shuffledStoredArray = shuffleAgain(storedArray);
+            let  shuffledStoredArray = shuffleAgain(storedArray);
             console.log(shuffledStoredArray)
             
             //Assign times to each task under random sort
-            var finalTaskList = [];
+            let  finalTaskList = [];
             
             for(let j=0;j<shuffledStoredArray.length;++j){
                     shuffledStoredArray[j]['time'] = '';
-                    var newTime = currentTime;
-                    var newTimedTask = Object.assign({}, shuffledStoredArray[j], { time: newTime});
+                    let  newTime = currentTime;
+                    let  newTimedTask = Object.assign({}, shuffledStoredArray[j], { time: newTime});
                     finalTaskList.push(newTimedTask);
                     currentTime = addTime(currentTime, 30);
                 }
-                
+
             //Create new table
             for(let i=0; i<finalTaskList.length;i++) {
                 document.getElementById('schedule-box').innerHTML +=
@@ -203,7 +259,7 @@ window.addEventListener('load', (event) => {
             }
 
             //Declare finalTaskList as the new storedArray
-            storedArray = finalTaskList
+        storedArray = finalTaskList
         }
     }
 })
@@ -211,9 +267,9 @@ window.addEventListener('load', (event) => {
 function addTaskPage (importanceIndex) {
     //To create the slide for the high priority tasks
     if(importanceIndex == 'a'){
-        var mySlidesTasks = document.createElement('div');
-        var Title = document.createElement('p');
-        var Subtitle = document.createElement('a');
+        let  mySlidesTasks = document.createElement('div');
+        let  Title = document.createElement('p');
+        let  Subtitle = document.createElement('a');
         //Add the task container
         mySlidesTasks.className = 'mySlides fade';
         mySlidesTasks.id = 'highTasks';
@@ -231,9 +287,9 @@ function addTaskPage (importanceIndex) {
     }
     if(importanceIndex == 'b'){
         console.log('hi')
-        var mySlidesTasks = document.createElement('div');
-        var Title = document.createElement('p');
-        var Subtitle = document.createElement('a');
+        let  mySlidesTasks = document.createElement('div');
+        let  Title = document.createElement('p');
+        let  Subtitle = document.createElement('a');
         //Add the task container
         mySlidesTasks.className = 'mySlides fade';
         mySlidesTasks.id = 'medTasks';
@@ -250,9 +306,9 @@ function addTaskPage (importanceIndex) {
                 addTaskDiv('medTasks','b','1', true);
     }
     if(importanceIndex == 'c'){
-        var mySlidesTasks = document.createElement('div');
-        var Title = document.createElement('p');
-        var Subtitle = document.createElement('a');
+        let  mySlidesTasks = document.createElement('div');
+        let  Title = document.createElement('p');
+        let  Subtitle = document.createElement('a');
         //Add the task container
         mySlidesTasks.className = 'mySlides fade';
         mySlidesTasks.id = 'lowTasks';
@@ -275,11 +331,11 @@ function addTaskDiv (containerID, priorityIndex, priorityNum, addButton) {
     const taskNumber = document.createElement('p');
     const taskInput = document.createElement('input');
     const durationInput = document.createElement('input');
-    var aText = document.createElement('a');
+    let  aText = document.createElement('a');
     const checkboxInput = document.createElement('input');
-    var addTaskText = document.createElement('a');
+    let  addTaskText = document.createElement('a');
     const taskCheckboxInput = document.createElement('input');
-    var linebreak = document.createElement('br');
+    let  linebreak = document.createElement('br');
 
     div.className='tasks';
     div.id=`${priorityIndex}-${priorityNum}`;
@@ -337,7 +393,7 @@ function addTaskDiv (containerID, priorityIndex, priorityNum, addButton) {
     linebreak = document.createElement('br');
 
     if(addButton === true) {
-        var addTaskbutton = document.createElement('a');
+        let  addTaskbutton = document.createElement('a');
 
         addTaskbutton.className='addTask button is-primary is-small';
         addTaskbutton.id=`${priorityIndex}-${priorityNum}-priority`;
@@ -352,16 +408,16 @@ function addTaskDiv (containerID, priorityIndex, priorityNum, addButton) {
 
 //Step 1: User enters items that they consider highest to lowest priority. The item is then array.push() into the corresponding array.
 
-var aPriority = [],
+let  aPriority = [],
     bPriority = [],
     cPriority = [];
 
-var priorityList = [aPriority, bPriority, cPriority];
+let  priorityList = [aPriority, bPriority, cPriority];
 console.log(priorityList)
 
 //Add task options
 
-var priorityIndex = {
+let  priorityIndex = {
     a: 1,
     b: 1,
     c: 1,
@@ -370,21 +426,21 @@ var priorityIndex = {
 
 function addTask () {
     //Examine the index of the add button and tasks 
-    var firstTaskId = event.target.parentNode.querySelectorAll("div")[0].id;
+    let  firstTaskId = event.target.parentNode.querySelectorAll("div")[0].id;
     console.log(event.target.parentNode.querySelectorAll("div")[0].id)
     console.log(document.getElementById(firstTaskId).id.charAt(0))
-    var priorityDegree = document.getElementById(firstTaskId).id.charAt(0);
+    let  priorityDegree = document.getElementById(firstTaskId).id.charAt(0);
     console.log(priorityIndex[`${priorityDegree}`])
     
     priorityIndex[`${priorityDegree}`] += 1;
-    var priorityNumber = priorityIndex[priorityDegree];
+    let  priorityNumber = priorityIndex[priorityDegree];
     
     addTaskDiv (firstTaskId, priorityDegree, priorityNumber)
 }
 
 function addTime (initialTime, moreTime) {
-    var hour = parseInt(initialTime.split(':')[0]);
-    var minute = parseInt(initialTime.split(':')[1]);
+    let  hour = parseInt(initialTime.split(':')[0]);
+    let  minute = parseInt(initialTime.split(':')[1]);
     minute += moreTime;
     if (minute >= 60) {
         if(minute % 60 >= 0) {
@@ -408,7 +464,7 @@ function addTime (initialTime, moreTime) {
 }
 
 
-var a1 = [
+let  a1 = [
     {task: 'Sleep',
      duration: '3',
      isImportant: true,
@@ -426,7 +482,7 @@ var a1 = [
     }
 ];
 
-var b1 = [
+let  b1 = [
     {task: 'Read book',
      duration: '1.5',
      isImportant: false,
@@ -439,7 +495,7 @@ var b1 = [
     }
 ];
 
-var c1 = [
+let  c1 = [
     {task: 'Take out trash',
      duration: '0.5',
      isImportant: false,
@@ -447,7 +503,7 @@ var c1 = [
     }
 ];
 
-var exampleTask = [a1,b1,c1];
+let  exampleTask = [a1,b1,c1];
 
 function addDurationToArray (task, multiplier, array) {
     for(let j=0;j<multiplier;j++) {
@@ -457,7 +513,7 @@ function addDurationToArray (task, multiplier, array) {
 }
 
 function shuffle (array) {
-    var currentIndex=array.length, temporaryValue, randomIndex;
+    let  currentIndex=array.length, temporaryValue, randomIndex;
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
         // Pick a remaining element...
@@ -471,8 +527,8 @@ function shuffle (array) {
     return array;
 }
 
-var durationSort = (arr) => {
-    var schedule, pickedTask, found, multiplier
+let  durationSort = (arr) => {
+    let  schedule, pickedTask, found, multiplier
     schedule = [];
     //Pick a random task in each priority
     for(let i=0;i<arr.length;i++) {
@@ -494,7 +550,6 @@ var durationSort = (arr) => {
                     //separate the tasks into 30minute segments
                     multiplier = (pickedTask.duration / 0.5);
                     addDurationToArray(pickedTask,multiplier,schedule);
-                    console.log(schedule)
                 }
             }
         } 
@@ -503,17 +558,15 @@ var durationSort = (arr) => {
             pickedTask = arr[i][Math.floor(Math.random()*arr[i].length)];
             multiplier = (pickedTask.duration / 0.5)
             addDurationToArray(pickedTask, multiplier, schedule);
-            console.log(schedule)
         }
         // for(let j=0;j<multiplier;j++) {
         //     const newMiniTask = Object.assign({}, pickedTask, { duration: 0.5 });
         //     schedule.push(newMiniTask);
         // }
     }
-    var importantTasks = [];
-    var nonImportantTasks = [];
-    console.log(schedule.length)
-    console.log(schedule)
+    let  importantTasks = [];
+    let  nonImportantTasks = [];
+
     //sorting the schedule based on importance
     for(let k=0;k<schedule.length;k++){
         if(schedule[k].isImportant === true) {
@@ -524,23 +577,16 @@ var durationSort = (arr) => {
     }
     console.log(importantTasks)
     //Fisher-Yates Shuffle https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-    var shuffledNonImportantTasks = shuffle(nonImportantTasks);
+    let  shuffledNonImportantTasks = shuffle(nonImportantTasks);
     return [importantTasks,shuffledNonImportantTasks];
 }
 
-console.log(durationSort(exampleTask))
-var shf = [].concat(durationSort(exampleTask)[0],durationSort(exampleTask)[1]);
-console.log(shf)
-var shf1 = shuffleAgain(shf)
-var shf2 = shuffleAgain(shf1)
-console.log(shf1)
-console.log(shf2)
-//question about scoping inside for loop and outside, can you use the same variable?
+//question about scoping inside for loop and outside, can you use the same let iable?
 // durationSort(priorityList)
 
 function shuffleAgain (arr) {
-    var importantTask = [];
-    var nonImportantTasks = [];
+    let  importantTask = [];
+    let  nonImportantTasks = [];
 
     //Isolate the important tasks from the nonImportant Tasks
     for(let i=0;i<arr.length;++i){
@@ -552,7 +598,7 @@ function shuffleAgain (arr) {
     }
 
     //Shuffle the nonImportantTasks
-    var shuffledNonImportantTasks = shuffle(nonImportantTasks);
+    let  shuffledNonImportantTasks = shuffle(nonImportantTasks);
 
     return [].concat(importantTask,shuffledNonImportantTasks);
 } 
@@ -562,7 +608,7 @@ function shuffleAgain (arr) {
 // window.addEventListener('load', (event) => {
 //     //CODE TO ADD CONTENT TO THE INDEX PAGE
 if (window.location.href.match('carousel.html') != null) {
-    var slideIndex = 1;
+    let  slideIndex = 1;
     // showSlides(slideIndex);
 
     // Next/previous controls
@@ -576,14 +622,14 @@ if (window.location.href.match('carousel.html') != null) {
     }
 
     function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
+    let  i;
+    let  slides = document.getElementsByClassName("mySlides");
     if (n > slides.length) {slideIndex = n - 1}
     if (n < 1) {slideIndex = n + 1}
 
     //Remove the slide arrow on the first and last page
-    var backButton = document.getElementById("previous");
-    var nextButton = document.getElementById('next');
+    let  backButton = document.getElementById("previous");
+    let  nextButton = document.getElementById('next');
 
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
@@ -593,7 +639,7 @@ if (window.location.href.match('carousel.html') != null) {
         slides[slideIndex-1].style.display = "block";
 
     //Change the progress bar based on the slide
-    var progressBar = document.getElementById("progress-bar");
+    let  progressBar = document.getElementById("progress-bar");
     if (n === 1) {progressBar.value = 0;}
     else if (n===2) {progressBar.value = 33;}
     else if (n===3) {progressBar.value = 66;}
@@ -615,17 +661,17 @@ if (window.location.href.match('carousel.html') != null) {
 
 const newTask = new Task('Eat pie', '0.5', true, true);
 
-var priorityLetters = ['a','b','c'];
+let  priorityLetters = ['a','b','c'];
 
 function getTasks() {
     for(let i = 0; i < priorityLetters.length; i++){
         for(let j = 1; j <= priorityIndex[priorityLetters[i]]; j++) {
-            var taskValue = document.getElementById(`${priorityLetters[i]}-${j}-task`).value
-            var durationValue = document.getElementById(`${priorityLetters[i]}-${j}-duration`).value
+            let  taskValue = document.getElementById(`${priorityLetters[i]}-${j}-task`).value
+            let  durationValue = document.getElementById(`${priorityLetters[i]}-${j}-duration`).value
             if(document.getElementById(`${priorityLetters[i]}-${j}-checkbox`) === null) {return false;}
-            var checkedValue = document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked
+            let  checkedValue = document.getElementById(`${priorityLetters[i]}-${j}-checkbox`).checked
             if(document.getElementById(`${priorityLetters[i]}-${j}-taskcheckbox`) === null) {return false;}
-            var taskCheckedValue = document.getElementById(`${priorityLetters[i]}-${j}-taskcheckbox`).checked
+            let  taskCheckedValue = document.getElementById(`${priorityLetters[i]}-${j}-taskcheckbox`).checked
             
             //Retreive and push onto array: task name, duration, and whether it's important
             if(priorityLetters[i] === 'a') {
@@ -655,14 +701,14 @@ function getTasks() {
     durationSort(priorityList);
 
     //Execute the randomSort function 
-    var randomSort = durationSort(priorityList);
-    var combinedRandomSort = [].concat(randomSort[0],randomSort[1]);
+    let  randomSort = durationSort(priorityList);
+    let  combinedRandomSort = [].concat(randomSort[0],randomSort[1]);
 
     //Assign times to each task under random sort
-    var currentTime = document.getElementById('start-time').value;
-    var finalTaskList = [];
+    let  currentTime = document.getElementById('start-time').value;
+    let  finalTaskList = [];
     for(let i=0;i<combinedRandomSort.length;++i){
-        var newTime = currentTime;
+        let  newTime = currentTime;
         const newTimedTask = Object.assign({}, combinedRandomSort[i], { time: newTime});
         finalTaskList.push(newTimedTask);
         currentTime = addTime(currentTime, 30);
@@ -680,3 +726,31 @@ function restartSchedule () {
     location.replace("carousel.html");
 }
 // sessionStorage.setItem("tasks", JSON.stringify([].concat(finalTaskList[0],finalTaskList[1])));
+
+//Different sorting algorithms
+
+let array = ["Steve","Jim","Pam","Bill","Adam"];
+
+let sortingAlgo = {
+    //Sort alphabetatically
+    alphabetSort: function (arr) {
+        return arr.sort((a,b) => {
+            if(a > b) {return 1};
+            if(a < b) {return -1};
+        })
+
+    },
+    //Sort reverse alphabetatically
+    reverseAlphabetSort: function (arr) {
+        return arr.sort((a,b) => {
+            if(a > b) {return 1};
+            if(a < b) {return -1};
+        })
+    },
+    //Sort by dispersing all the 
+    dispersingSort: function (arr) {
+        // if(arr)
+    }
+}
+
+sortingAlgo.alphabetSort(array);
