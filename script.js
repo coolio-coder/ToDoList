@@ -155,7 +155,7 @@ window.addEventListener('load', (event) => {
         shuffleButton.innerHTML='🎲Shuffle Your Schedule🎲';
         shuffleButton.onclick=shuffleSchedule;
 
-        divDropdown.className = 'dropdown is-active';
+        divDropdown.className = 'dropdown';
         divDropdown.id = 'divDropdown';
             divDropdownTrig.className = 'dropdown-trigger';
             divDropdownTrig.id = 'divDropdownTrig';
@@ -163,10 +163,10 @@ window.addEventListener('load', (event) => {
                 dropDownbutton.id = 'dropDownbutton';
                 dropDownbutton.setAttribute('aria-haspopup', 'true')
                 dropDownbutton.setAttribute('aria-controls', 'dropdown-menu');
-                    dropDownTitle.innerHTML = 'Set your Shuffle Type';
+                    dropDownTitle.innerHTML = 'Set your Shuffle Type ⬇';
                     dropDownTitle.id = 'dropDownTitle';
-                    dropDownIcon.className = 'icon is-small';
-                    dropDownIcon.innerHTML = '<i class="fas fa-angle-down" aria-hidden="true"></i>';
+                    // dropDownIcon.className = 'icon is-small';
+                    // dropDownIcon.innerHTML = '<i class="fas fa-angle-down" aria-hidden="true"></i>';
             dropDownMenu.className = 'dropdown-menu';
             dropDownMenu.id = 'dropdown-menu';
             dropDownMenu.role = 'menu';
@@ -174,12 +174,20 @@ window.addEventListener('load', (event) => {
                 dropDownContent.id = 'dropDownContent';
                     dropDownShf1.className = 'dropdown-item'
                     dropDownShf1.innerHTML = 'Default Sort / Fisher Yates'
+                    dropDownShf1.id = 'defaultSort';
+                    dropDownShf1.onclick = setSchedule;
                     dropDownShf2.className = 'dropdown-item'
                     dropDownShf2.innerHTML = 'Alphabet Sort'
+                    dropDownShf2.id = 'alphabetSort'
+                    dropDownShf2.onclick = setSchedule;
                     dropDownShf3.className = 'dropdown-item'
                     dropDownShf3.innerHTML = 'Reverse Alphabet Sort'
+                    dropDownShf3.id = 'reverseAlphabetSort'
+                    dropDownShf3.onclick = setSchedule;
                     dropDownShf4.className = 'dropdown-item'
                     dropDownShf4.innerHTML = 'Dispersed Sort'
+                    dropDownShf4.id = 'dispersedSort';
+                    dropDownShf4.onclick = setSchedule;
 
         
         //Append the elements to the HTML body
@@ -193,7 +201,8 @@ window.addEventListener('load', (event) => {
         document.getElementById('tableHead').appendChild(tableDurationHead);
         document.getElementById('main-container').appendChild(lineBreak);
         lineBreak = document.createElement('br');
-        document.getElementById('main-container').appendChild(lineBreak);
+        
+        
 
         document.getElementById('main-container').appendChild(divDropdown);
             document.getElementById('divDropdown').appendChild(divDropdownTrig);
@@ -207,6 +216,8 @@ window.addEventListener('load', (event) => {
                     document.getElementById('dropDownContent').appendChild(dropDownShf3);
                     document.getElementById('dropDownContent').appendChild(dropDownShf4);
 
+        document.getElementById('main-container').appendChild(lineBreak);
+        lineBreak = document.createElement('br');
         document.getElementById('main-container').appendChild(lineBreak);
         lineBreak = document.createElement('br');
         document.getElementById('main-container').appendChild(shuffleButton);
@@ -261,8 +272,40 @@ window.addEventListener('load', (event) => {
             //Declare finalTaskList as the new storedArray
         storedArray = finalTaskList
         }
+
+
+        var dropdown = document.querySelector('.dropdown');
+        var dropdownItems = document.querySelector('.dropdown-item')
+        
+
+        dropdown.addEventListener('click', function(event) {
+            // event.stopPropagation();
+            dropdown.classList.toggle('is-active');
+        });
+        
+        dropdownItems.addEventListener('click', function(event) {
+            // event.stopPropagation();
+            dropdownItems.classList.toggle('is-active');
+            console.log(dropdownItems.classList.value)
+            if(!dropdownItems.classList.value.includes('is-active')) {
+                document.getElementById('dropDownTitle').innerHTML = "Set your Shuffle Type ⬇"
+            }
+            document.getElementById('dropDownTitle').innerHTML = dropdownItems.innerHTML
+        });
+        
     }
 })
+
+function setSchedule () {
+    
+    // let i;
+    // let dropdownItems = document.getElementsByClassName("dropdown-item");
+
+    // for(i=0;i<dropdownItems.length;++i) {
+    //     console.log(dropdownItems[i])
+    //     // console.log(document.getElementById(event.srcElement.id))
+    // }
+}
 
 function addTaskPage (importanceIndex) {
     //To create the slide for the high priority tasks
