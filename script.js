@@ -100,6 +100,7 @@ window.addEventListener('load', (event) => {
         addTaskPage('b',true)
         addTaskPage('c',true)
 
+            document.getElementById('lowTasks').appendChild(linebreak)
             document.getElementById('lowTasks').appendChild(submitButton)
             document.getElementById('slideshowContainer').appendChild(progressBar)
     } 
@@ -172,7 +173,7 @@ window.addEventListener('load', (event) => {
             dropDownMenu.role = 'menu';
                 dropDownContent.className = 'dropdown-content';
                 dropDownContent.id = 'dropDownContent';
-                    dropDownShf1.className = 'dropdown-item'
+                    dropDownShf1.className = 'dropdown-item is-active'
                     dropDownShf1.innerHTML = 'Default Sort / Fisher Yates'
                     dropDownShf1.id = 'defaultSort';
                     dropDownShf1.onclick = setSchedule;
@@ -247,7 +248,8 @@ window.addEventListener('load', (event) => {
             [...document.getElementsByClassName("grid-item")].map(n => n && n.remove());
 
             //Shuffle the stored array
-            let  shuffledStoredArray = shuffleAgain(storedArray);
+            //Set the second argument as the type of shuffle
+            let  shuffledStoredArray = shuffleAgain(storedArray, oldShuffleAlgo);
             console.log(shuffledStoredArray)
             
             //Assign times to each task under random sort
@@ -275,36 +277,45 @@ window.addEventListener('load', (event) => {
 
 
         var dropdown = document.querySelector('.dropdown');
-        var dropdownItems = document.querySelector('.dropdown-item')
-        
+        var dropdownItem = document.querySelector('.dropdown-item');
 
+        //Toggle the drop down off and on
         dropdown.addEventListener('click', function(event) {
-            // event.stopPropagation();
+            event.stopPropagation();
             dropdown.classList.toggle('is-active');
         });
-        
-        dropdownItems.addEventListener('click', function(event) {
-            // event.stopPropagation();
-            dropdownItems.classList.toggle('is-active');
-            console.log(dropdownItems.classList.value)
-            if(!dropdownItems.classList.value.includes('is-active')) {
-                document.getElementById('dropDownTitle').innerHTML = "Set your Shuffle Type ⬇"
-            }
-            document.getElementById('dropDownTitle').innerHTML = dropdownItems.innerHTML
-        });
-        
+
+        //Assign the shuffle function to be based on the selection of the 
     }
 })
 
-function setSchedule () {
-    
-    // let i;
-    // let dropdownItems = document.getElementsByClassName("dropdown-item");
+let oldShuffleAlgo = "defaultSort";
+let newShuffeAlgo = "";
 
-    // for(i=0;i<dropdownItems.length;++i) {
-    //     console.log(dropdownItems[i])
-    //     // console.log(document.getElementById(event.srcElement.id))
-    // }
+function setSchedule () {
+    console.log(oldShuffleAlgo)
+    //Find the element that the user clicks
+    let dropdownItem = document.getElementById(event.target.id);
+    
+    console.log(dropdownItem);
+    console.log(document.getElementById('defaultSort'))
+    //If the id is the same as the old shuffle algo, then we don't do anything as set the inner html to be default
+    if(dropdownItem.id == oldShuffleAlgo && dropdownItem.id == "defaultSort") {
+        document.getElementById('dropDownTitle').innerHTML = dropdownItem.innerHTML
+    } else if (dropdownItem.id == oldShuffleAlgo && dropdownItem.id != "defaultSort") {
+        document.getElementById('dropDownTitle').innerHTML = "Default Sort / Fisher Yates";
+        dropdownItem.classList.toggle('is-active')
+        document.getElementById('defaultSort').classList.toggle('is-active');
+    }
+    else {
+        //If the new toggle's value isn't the old shuffle algo, then toggle off the oldShuffleAlgo
+        document.getElementById(oldShuffleAlgo).classList.toggle('is-active');
+        //Toggle on the new button
+        dropdownItem.classList.toggle('is-active');
+        //Set the old shuffle algo as the current id
+        oldShuffleAlgo = dropdownItem.id;
+        document.getElementById('dropDownTitle').innerHTML = dropdownItem.innerHTML;
+    }
 }
 
 function addTaskPage (importanceIndex) {
@@ -627,7 +638,8 @@ let  durationSort = (arr) => {
 //question about scoping inside for loop and outside, can you use the same let iable?
 // durationSort(priorityList)
 
-function shuffleAgain (arr) {
+function shuffleAgain (arr, shuffleName) {
+    let shuffledNonImportantTasks;
     let  importantTask = [];
     let  nonImportantTasks = [];
 
@@ -641,7 +653,14 @@ function shuffleAgain (arr) {
     }
 
     //Shuffle the nonImportantTasks
-    let  shuffledNonImportantTasks = shuffle(nonImportantTasks);
+    console.log(nonImportantTasks)
+    if(arguments.length == 2) {
+        shuffledNonImportantTasks = sortingAlgo[shuffleName](nonImportantTasks)
+        shuffledNonImportantTasks = sortingAlgo[shuffleName](nonImportantTasks)
+        console.log(shuffledNonImportantTasks)
+    } else {
+        shuffledNonImportantTasks = sortingAlgo.defaultSort(nonImportantTasks);
+    }
 
     return [].concat(importantTask,shuffledNonImportantTasks);
 } 
@@ -775,6 +794,21 @@ function restartSchedule () {
 let array = ["Steve","Jim","Pam","Bill","Adam"];
 
 let sortingAlgo = {
+    //Default Sort / Fisher Yates
+    defaultSort: function (array) {
+        let  currentIndex=array.length, temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    },
     //Sort alphabetatically
     alphabetSort: function (arr) {
         return arr.sort((a,b) => {
@@ -796,4 +830,16 @@ let sortingAlgo = {
     }
 }
 
-sortingAlgo.alphabetSort(array);
+let sortName = 'alphabetSort';
+
+// for(let key in sortingAlgo) {
+//     if (key == sortName) {
+        
+//         console.log(Object.values(sortingAlgo))
+//     }
+// }
+
+
+let arrayOfSortingAlgo = Object.keys(sortingAlgo);
+
+console.log(sortingAlgo[sortName](array))
